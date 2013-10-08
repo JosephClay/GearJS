@@ -1,0 +1,11 @@
+ ☐ Sprite
+ ☐ MovieClip class
+ ☐ Button class
+ ☐ Audio engine
+ ☐ Pattern Class
+ ☐ CursorClass that can class the body, using a manifest and has default cursor states
+ ☐ Add Extend to objects
+ ☐ Class that lets stage "fill" container - window resize
+ ☐ Extended classes need to invoke a .constructor
+ ☐ CannonJS integration
+ ☐ TODO: Different hit boxing -- currently using hit canvas, maybe use a geom box for quick/basic?

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Gear</title>
+		<link rel="stylesheet" href="test/qunit.css">
+		<style>
+			#Test1 { display: none; }
+			#Test2, .Gear-Stage {
+				width: 500px;
+				height: 100px;
+				background: #f3f3f3;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="Test1"></div>
+		<div id="Test2"></div>
+		<div id="Test3"></div>
+
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+
+
+		<!-- start Gear -->
+		<script src="src/libs/underscore-1.5.1.js"></script>
+
+		<script src="src/Gear.js"></script>
+		<script src="src/Constants.js"></script>
+		<script src="src/Global.js"></script>
+		
+		<script src="src/utils/Mixins.js"></script>
+		<script src="src/utils/Util.js"></script>
+		<script src="src/utils/Id.js"></script>
+		<script src="src/utils/Guid.js"></script>
+		<script src="src/utils/Point.js"></script>
+		<script src="src/utils/Plane.js"></script>
+		<script src="src/utils/Color.js"></script>
+		<script src="src/utils/Math.js"></script>
+		
+		<script src="src/events/Signal.js"></script>
+		<script src="src/events/Tick.js"></script>
+		
+		<script src="src/net/Xaja.js"></script>
+
+		<script src="src/manifest/Resource.js"></script>
+		<script src="src/manifest/Manifest.js"></script>
+		<script src="src/manifest/Asset.js"></script>
+
+		<script src="src/core/Transform.js"></script>
+		<script src="src/core/Collection.js"></script>
+		<script src="src/core/Node.js"></script>
+		<script src="src/core/Canvas.js"></script>
+		<script src="src/core/SceneCanvas.js"></script>
+		<script src="src/core/HitCanvas.js"></script>
+		<script src="src/core/Container.js"></script>
+		<script src="src/core/Shape.js"></script>
+		<script src="src/core/Stage.js"></script>
+		<script src="src/core/Layer.js"></script>
+		<script src="src/core/Group.js"></script>
+		<script src="src/core/Animation.js"></script>
+		<script src="src/core/Sprite.js"></script>
+		<script src="src/core/BitmapAnimation.js"></script>
+
+		<script src="src/tween/Easing.js"></script>
+		<script src="src/tween/Interpolation.js"></script>
+		<script src="src/tween/TweenEngine.js"></script>
+		<script src="src/tween/Tween.js"></script>
+
+		<script src="src/shapes/Rect.js"></script>
+		<script src="src/shapes/Circle.js"></script>
+		<script src="src/shapes/Ellipse.js"></script>
+		<script src="src/shapes/Wedge.js"></script>
+		<script src="src/shapes/Image.js"></script>
+		<script src="src/shapes/Polygon.js"></script>
+		<script src="src/shapes/Text.js"></script>
+		<script src="src/shapes/Line.js"></script>
+		<script src="src/shapes/Spline.js"></script>
+		<script src="src/shapes/Blob.js"></script>
+		<!--<script src="src/shapes/Sprite.js"></script>-->
+
+		<script src="src/plugins/Path.js"></script>
+		<script src="src/plugins/TextPath.js"></script>
+		<script src="src/plugins/RegularPolygon.js"></script>
+		<script src="src/plugins/Star.js"></script>
+		<script src="src/plugins/Label.js"></script>
+		<script src="src/plugins/Tag.js"></script>
+
+		<script src="src/filters/Grayscale.js"></script>
+		<script src="src/filters/Brighten.js"></script>
+		<script src="src/filters/Invert.js"></script>
+		<script src="src/filters/Blur.js"></script>
+		<script src="src/filters/Mask.js"></script>
+		<script src="src/filters/ColorPack.js"></script>
+		<script src="src/filters/ConvolvePack.js"></script>
+		<!-- end Gear -->
+
+		<script src="test/qunit.js"></script>
+
+		<!-- start Tests -->
+		<script src="test/gear/objectexistance.js"></script>
+		<script src="test/gear/util.js"></script>
+		<script src="test/gear/id.js"></script>
+		<script src="test/gear/color.js"></script>
+		<script src="test/gear/point.js"></script>
+		<script src="test/gear/plane.js"></script>
+		<script src="test/gear/collection.js"></script>
+		<script src="test/gear/tick.js"></script>
+		<script src="test/gear/container.js"></script>
+		<script src="test/gear/canvas.js"></script>
+		<script src="test/gear/stage.js"></script>
+		<script src="test/gear/node.js"></script>
+		<script src="test/gear/layer.js"></script>
+		<script src="test/gear/shape.js"></script>
+
+		<script src="test/tests.js"></script>
+		<!-- end Tests -->
+
+	</body>
+</html>
