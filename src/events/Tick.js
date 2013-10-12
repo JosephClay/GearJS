@@ -194,7 +194,7 @@
 
 			e.paused = paused;
 			e.delta = elapsedTime;
-			e.time = time;
+			e.time = e.now = time;
 			e.runTime = (time - this._pausedTime);
 
 			this.dispatch('tick', e);
