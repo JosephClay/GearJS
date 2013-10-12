@@ -1,6 +1,5 @@
 var Gear = {
-	_VERSION: '0.1',
-	Filters: {} // Filters namespace
+	_VERSION: '0.1'
 };
 
 // Uses Node, AMD or browser globals to create a module.
