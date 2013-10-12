@@ -6,7 +6,7 @@
 
 		Linear: function( v, k ) {
 
-			var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = TWEEN.Interpolation.Util.Linear;
+			var m = v.length - 1, f = m * k, i = ~~( f ), fn = TWEEN.Interpolation.Util.Linear;
 
 			if ( k < 0 ) return fn( v[0], v[1], f );
 			if ( k > 1 ) return fn( v[m], v[m - 1], m - f );
@@ -29,11 +29,11 @@
 
 		CatmullRom: function( v, k ) {
 
-			var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = TWEEN.Interpolation.Util.CatmullRom;
+			var m = v.length - 1, f = m * k, i = ~~( f ), fn = TWEEN.Interpolation.Util.CatmullRom;
 
 			if ( v[0] === v[m] ) {
 
-				if ( k < 0 ) i = Math.floor( f = m * ( 1 + k ) );
+				if ( k < 0 ) i = ~~( f = m * ( 1 + k ) );
 
 				return fn( v[( i - 1 + m ) % m], v[i], v[( i + 1 ) % m], v[( i + 2 ) % m], f - i );
 

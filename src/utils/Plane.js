@@ -205,7 +205,7 @@
 		 * @return {Number}
 		 */
 		getHalfWidth: function() {
-			return Math.round(this.getWidth() / 2);
+			return _.round(this.getWidth() / 2);
 		},
 
 		/**
@@ -213,7 +213,7 @@
 		 * @return {Number}
 		 */
 		getHalfHeight: function() {
-			return Math.round(this.getHeight() / 2);
+			return _.round(this.getHeight() / 2);
 		},
 
 		/**

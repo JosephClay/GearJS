@@ -1,3 +1,6 @@
+/**
+ * Modified from: http://kineticjs.com/
+ */
 (function(Filters) {
 
 	var _convolve = function(imageData, matrix) {
@@ -15,8 +18,8 @@
 		// Note: it should be square and odd (3,5,7,9 etc...)
 		var matrixSizeX = matrix.length,
 			matrixSizeY = matrix[0].length,
-			matrixMidX = Math.floor(matrix.length/2),
-			matrixMidY = Math.floor(matrix[0].length/2);
+			matrixMidX = ~~(matrix.length/2),
+			matrixMidY = ~~(matrix[0].length/2);
 
 		// Accumlators and positions for iterating
 		var r, g, b, a, x, y, px, py, pos, i, j;
@@ -112,7 +115,7 @@
 		// Instead of that we've scaling the blur kernel (ie 60)
 		// and adding the identity scaled (ie 40) to the kernel
 		var kernel = _makeBlurKernel(size, percent, 1),
-			mid = Math.floor(size/2);
+			mid = ~~(size/2);
 		kernel[mid][mid] += 1-percent;
 		return kernel;
 	};
@@ -123,7 +126,7 @@
 		// with the blur negated). We can achieve this by negating 
 		// blur kernel, and adding twice the identity to that kernel.
 		var kernel = _makeBlurKernel(size, -percent, 1),
-			mid = Math.floor(size/2);
+			mid = ~~(size/2);
 		kernel[mid][mid] += 1+percent;
 		return kernel;
 	};

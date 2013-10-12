@@ -1,3 +1,6 @@
+/**
+ * Modified from: http://kineticjs.com/
+ */
 (function(Filters) {
 	
 	Filters.Grayscale = function(imageData) {

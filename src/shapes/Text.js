@@ -120,7 +120,7 @@
 
 			return {
 				width: metrics.width,
-				height: _.parseInt(this.getFontSize())
+				height: +(this.getFontSize())
 			};
 		},
 

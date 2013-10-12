@@ -1,11 +1,10 @@
-// TODO: Optimize
-
 (function(Gear, Constants, Util) {
 
 	/**
+	 * An image
 	 * @param {Object} config
-	 * @param {ImageObject} config.image
-	 * @param {Object} [config.crop]
+	 * @param {ImageObject} config.image an Image object
+	 * @param {Object} config.crop optional crop area
 	 * @example
 	 * var imageObj = new Image();
 	 * imageObj.onload = function() {
@@ -22,6 +21,8 @@
 	var Image = function(config) {
 		Gear.Shape.call(this, config);
 		this._className = Constants.CLASS.IMAGE;
+		this._isFilterApplied = false;
+		this.filterCanvas = null;
 	};
 
 	_.extend(Image.prototype, Gear.Shape.prototype, {
@@ -32,28 +33,23 @@
 				height = this.getHeight(),
 				crop = this.getCrop();
 
-			// if a filter is set, and the filter needs to be updated, reapply
-			if (this.getFilter() && !this._isFilterApplied) {
-				this.applyFilter();
+			// If a filter is set, and the filter needs to be applied, reapply
+			if (!this._isFilterApplied && this.getFilter()) {
+				this.filterCanvas = this.applyFilter();
 				this._isFilterApplied = true;
 			}
 
-			// NOTE: this.filterCanvas may be set by the above code block
-			var image;
-			if (this.filterCanvas) {
-				image = this.filterCanvas.getElement();
-			} else {
-				image = this.getImage();
-			}
+			var image = (this.filterCanvas) ? this.filterCanvas.getElement() : this.getImage();
 
 			context.beginPath();
 			context.rect(0, 0, width, height);
 			context.closePath();
 			canvas.fillAndStroke(this);
-
-			var self = this, params;
+			
 			if (!image) { return; }
 
+			// TODO: Optimize
+			var params = this.drawImageParams;
 			if (crop.width && crop.height) { // if cropping
 				params = [image, crop.x, crop.y, crop.width, crop.height, 0, 0, width, height];
 			} else { // no cropping
@@ -101,7 +97,7 @@
 				filterCanvas = this.filterCanvas;
 				filterCanvas.clear();
 			} else {
-				filterCanvas = this.filterCanvas = new Gear.SceneCanvas({
+				filterCanvas = new Gear.SceneCanvas({
 					width: width,
 					height: height,
 					pixelRatio: 1
@@ -114,17 +110,20 @@
 			imageData = context.getImageData(0, 0, filterCanvas.getWidth(), filterCanvas.getHeight());
 			filter.call(this, imageData);
 			context.putImageData(imageData, 0, 0);
-		},
 
+			return filterCanvas;
+		},
 		clearFilter: function() {
 			this.filterCanvas = null;
 			this._isFilterApplied = false;
 		},
 
-		// create image hit region which enables more accurate hit detection mapping of the image
-		// by avoiding event detections for transparent pixels
-		// @param {Function} [callback] callback function to be called once the image hit region has been created
-		createImageHitRegion: function(callback) {
+		/**
+		 * Create an image hit region which enables more accurate hit
+		 * detection mapping of the image by avoiding event detections
+		 * for transparent pixels
+		 */
+		createImageHitRegion: function() {
 			var width = this.getWidth(),
 				height = this.getHeight(),
 				canvas = new Gear.Canvas({
@@ -153,10 +152,8 @@
 			var self = this;
 			Util.getImage(imageData, function(imageObj) {
 				self.imageHitRegion = imageObj;
-				if (callback) { callback(); }
 			});
 		},
-
 		clearImageHitRegion: function() {
 			this.imageHitRegion = null;
 		},
@@ -165,7 +162,6 @@
 			var image = this.getImage();
 			return _.exists(this.attr.width) ? this.attr.width : (image ? image.width : 0);
 		},
-
 		getHeight: function() {
 			var image = this.getImage();
 			return _.exists(this.attr.height) ? this.attr.height : (image ? image.height : 0);
@@ -176,66 +172,6 @@
 		},
 		setFilter: function(filter) {
 			this.attr.filter = filter;
-			this._isFilterApplied = false;
-		},
-
-		// Filter support: Blur
-		getFilterRadius: function() {
-			var val = this.attr.filterRadius;
-			return (!_.exists(val)) ? 0 : val;
-		},
-		setFilterRadius: function(val) {
-			this.attr.filterRadius = val;
-			this._isFilterApplied = false;
-		},
-
-		// Filter support: Brighten
-		getFilterBrightness: function() {
-			var val = this.attr.filterBrightness;
-			return (!_.exists(val)) ? 0 : val;
-		},
-		setFilterBrightness: function(val) {
-			this.attr.filterBrightness = val;
-			this._isFilterApplied = false;
-		},
-
-		// Filter support: ColorPack - shift hue
-		getFilterHueShiftDeg: function() {
-			var val = this.attr.filterHueShiftDeg;
-			return (!_.exists(val)) ? 0 : val;
-		},
-		setFilterHueShiftDeg: function(val) {
-			this.attr.filterHueShiftDeg = val;
-			this._isFilterApplied = false;
-		},
-
-		// Filter support: ColorPack - colorize
-		getFilterColorizeColor: function() {
-			var val = this.attr.filterColorizeColor;
-			return (!_.exists(val)) ? [255, 0, 0] : val;
-		},
-		setFilterColorizeColor: function(val) {
-			this.attr.filterColorizeColor = val;
-			this._isFilterApplied = false;
-		},
-
-		// Filter support: ConvolvePack
-		getFilterAmount: function() {
-			var val = this.attr.filterAmount;
-			return (!_.exists(val)) ? 50 : val;
-		},
-		setFilterAmount: function(val) {
-			this.attr.filterAmount = val;
-			this._isFilterApplied = false;
-		},
-
-		// Filter support: Mask
-		getFilterThreshold: function() {
-			var val = this.attr.filterThreshold;
-			return (!_.exists(val)) ? 0 : val;
-		},
-		setFilterThreshold: function(val) {
-			this.attr.filterThreshold = val;
 			this._isFilterApplied = false;
 		},
 

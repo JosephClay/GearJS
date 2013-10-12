@@ -109,7 +109,7 @@
 
 			return {
 				width: metrics.width,
-				height: _.parseInt(this.attr.fontSize)
+				height: +(this.attr.fontSize)
 			};
 		},
 		_setTextData: function() {

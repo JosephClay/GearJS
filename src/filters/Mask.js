@@ -1,3 +1,5 @@
+// TODO: Optimize
+
 (function(Filters) {
 
 	var _pixelAt = function(imgData, x, y) {
@@ -60,8 +62,8 @@
 	var _erodeMask = function(mask, sw, sh) {
 
 		var weights = [1, 1, 1, 1, 0, 1, 1, 1, 1],
-			side = Math.round(Math.sqrt(weights.length)),
-			halfSide = Math.floor(side / 2),
+			side = _.round(Math.sqrt(weights.length)),
+			halfSide = ~~(side / 2),
 			maskResult = [],
 			y = 0;
 		for (; y < sh; y += 1) {
@@ -99,8 +101,8 @@
 	var _dilateMask = function(mask, sw, sh) {
 
 		var weights = [1, 1, 1, 1, 1, 1, 1, 1, 1],
-			side = Math.round(Math.sqrt(weights.length)),
-			halfSide = Math.floor(side / 2),
+			side = _.round(Math.sqrt(weights.length)),
+			halfSide = ~~(side / 2),
 			maskResult = [],
 			y = 0;
 		for (; y < sh; y += 1) {
@@ -136,10 +138,10 @@
 	};
 
 	var _smoothEdgeMask = function(mask, sw, sh) {
-
-		var weights = [1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9],
-			side = Math.round(Math.sqrt(weights.length)),
-			halfSide = Math.floor(side / 2),
+		var oneNinth = 1/9,
+			weights = [oneNinth, oneNinth, oneNinth, oneNinth, oneNinth, oneNinth, oneNinth, oneNinth, oneNinth],
+			side = _.round(Math.sqrt(weights.length)),
+			halfSide = ~~(side / 2),
 			maskResult = [],
 			y = 0;
 		for (; y < sh; y += 1) {
@@ -174,8 +176,13 @@
 		return maskResult;
 	};
 	
-	// Mask Filter
-	// Only crop unicolor background images for instance
+	/**
+	 * Mask Filter
+	 *
+	 * Modified from: http://kineticjs.com/
+	 * 
+	 * @param {Object} image data
+	 */
 	Filters.Mask = function(imgData) {
 		// Detect pixels close to the background color
 		var threshold = this.getFilterThreshold(),
@@ -194,8 +201,6 @@
 
 		// Apply mask
 		_applyMask(imgData, mask);
-		
-		// POSSIBILITY: Update hit region function according to mask
 
 		return imgData;
 	};

@@ -80,9 +80,9 @@
 				// rgb string
 				rgb = Constants.REGEX.RGB.exec(color.replace(Constants.REGEX.SPACE,''));
 				return {
-					r: _.parseInt(rgb[1]),
-					g: _.parseInt(rgb[2]),
-					b: _.parseInt(rgb[3])
+					r: +(rgb[1]),
+					g: +(rgb[2]),
+					b: +(rgb[3])
 				};
 			}
 
