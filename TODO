@@ -1,14 +1,13 @@
- ☐ Sprite
+ ☐ Add Extend to objects
+ ☐ Extended classes need to invoke a .constructor
  ☐ MovieClip class
  ☐ Button class
  ☐ Audio engine
- ☐ Pattern Class
  ☐ CursorClass that can class the body, using a manifest and has default cursor states
- ☐ Add Extend to objects
  ☐ Class that lets stage "fill" container - window resize
- ☐ Extended classes need to invoke a .constructor
  ☐ CannonJS integration
  ☐ TODO: Different hit boxing -- currently using hit canvas, maybe use a geom box for quick/basic?
- ☐ TODO: Display Listing: http://www.html5rocks.com/en/tutorials/canvas/performance/
- ☐ TODO: Ability to turn off subpixel rendering
+ ☐ TODO: Cache canvas: http://www.html5rocks.com/en/tutorials/canvas/performance/
  ☐ Mouse event check every frame (using window.event) if events are active
+ ☐ Window focus/leave event bindings
+ ☐ Keyboard bindings lib
