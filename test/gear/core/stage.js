@@ -6,14 +6,13 @@ test('Stage', function() {
 	ok(!blankStage.getContainer() && !blankStage.getContent(), 'Stage can be destroyed');
 
 	var stage = new Gear.Stage({
-		container: 'Test1',
+		container: 'Test0',
 		width: 1000,
 		height: 500
 	});
 
     var layer = new Gear.Layer({
         name: 'TestLayer',
-        auto: true,
         width: 1000,
         height: 500,
         x: 0,
@@ -33,7 +32,7 @@ test('Stage', function() {
 	
 	ok(_.exists(stage.getContainer()), 'Container exists');
 	ok(_.isString(stage.getContainer().innerHTML), 'Container is an element');
-	ok(stage.getContainer().id === 'Test1', 'Test1 is the id of the stage element');
+	ok(stage.getContainer().id === 'Test0', 'Test0 is the id of the stage element');
 
 	ok(_.exists(stage.getContent()), 'Content exists');
 	ok(_.isString(stage.getContent().innerHTML), 'Content is an element');

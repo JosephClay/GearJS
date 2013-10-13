@@ -5,22 +5,36 @@
 		<title>Gear</title>
 		<link rel="stylesheet" href="test/qunit.css">
 		<style>
-			#Test1 { display: none; }
-			#Test2, .Gear-Stage {
-				width: 500px;
+			.Test, .Gear-Stage {
+				width: 100px;
 				height: 100px;
-				background: #f3f3f3;
 			}
+			.Test {
+				float: left;
+				margin: 2px;
+				border: 1px solid #ccc;
+			}
+			
+			#Test0 { display: none; }
 		</style>
 	</head>
 	<body>
-		<div id="Test1"></div>
-		<div id="Test2"></div>
-		<div id="Test3"></div>
+		<div id="Test0" class="Test"></div>
+		<div id="Test1" class="Test"></div>
+		<div id="Test2" class="Test"></div>
+		<div id="Test3" class="Test"></div>
+		<div id="Test4" class="Test"></div>
+		<div id="Test5" class="Test"></div>
+		<div id="Test6" class="Test"></div>
+		<div id="Test7" class="Test"></div>
+		<div id="Test8" class="Test"></div>
+		<div id="Test9" class="Test"></div>
+		<div id="Test10" class="Test"></div>
+
+		<br style="clear: both;">
 
 		<div id="qunit"></div>
 		<div id="qunit-fixture"></div>
-
 
 		<!-- start Gear -->
 		<script src="src/libs/underscore-1.5.1.js"></script>
@@ -49,6 +63,7 @@
 		<script src="src/manifest/Asset.js"></script>
 
 		<script src="src/core/Collection.js"></script>
+		<script src="src/core/Stroke.js"></script>
 		<script src="src/core/Node.js"></script>
 		<script src="src/core/Canvas.js"></script>
 		<script src="src/core/SceneCanvas.js"></script>
@@ -61,6 +76,7 @@
 		<script src="src/core/Animation.js"></script>
 
 		<script src="src/core/fill/Fill.js"></script>
+		<script src="src/core/fill/Color.js"></script>
 		<script src="src/core/fill/Pattern.js"></script>
 		<script src="src/core/fill/LinearGradient.js"></script>
 		<script src="src/core/fill/RadialGradient.js"></script>
@@ -105,20 +121,42 @@
 		<script src="test/pavlov.js"></script>
 
 		<!-- start Tests -->
-		<script src="test/gear/util.js"></script>
-		<script src="test/gear/id.js"></script>
-		<script src="test/gear/color.js"></script>
-		<script src="test/gear/point.js"></script>
-		<script src="test/gear/plane.js"></script>
-		<script src="test/gear/collection.js"></script>
-		<script src="test/gear/tick.js"></script>
-		<script src="test/gear/container.js"></script>
-		<script src="test/gear/canvas.js"></script>
-		<script src="test/gear/stage.js"></script>
-		<script src="test/gear/node.js"></script>
-		<script src="test/gear/layer.js"></script>
-		<script src="test/gear/shape.js"></script>
-		<script src="test/gear/spritesheet.js"></script>
+		<script src="test/gear/gear.js"></script>
+		<script src="test/gear/constants.js"></script>
+		<script src="test/gear/global.js"></script>
+
+		<script src="test/gear/utils/util.js"></script>
+		<script src="test/gear/utils/id.js"></script>
+		<script src="test/gear/utils/color.js"></script>
+		<script src="test/gear/utils/point.js"></script>
+		<script src="test/gear/utils/plane.js"></script>
+		
+		<script src="test/gear/events/tick.js"></script>
+		
+		<script src="test/gear/core/collection.js"></script>
+		<script src="test/gear/core/container.js"></script>
+		<script src="test/gear/core/canvas.js"></script>
+		<script src="test/gear/core/stage.js"></script>
+		<script src="test/gear/core/node.js"></script>
+		<script src="test/gear/core/layer.js"></script>
+		<script src="test/gear/core/shape.js"></script>
+		<script src="test/gear/core/shape.js"></script>
+		
+		<script src="test/gear/shapes/rect.js"></script>
+		<script src="test/gear/shapes/circle.js"></script>
+		<script src="test/gear/shapes/line.js"></script>
+		<script src="test/gear/shapes/wedge.js"></script>
+		<script src="test/gear/shapes/ellipse.js"></script>
+		<script src="test/gear/shapes/polygon.js"></script>
+		<script src="test/gear/shapes/spline.js"></script>
+		<script src="test/gear/shapes/blob.js"></script>
+		<script src="test/gear/shapes/text.js"></script>
+		<script src="test/gear/shapes/image.js"></script>
+
+		<script src="test/gear/sprites/spritesheet.js"></script>
+		<script src="test/gear/sprites/sprite.js"></script>
+		
+		<script src="test/gear/other/events.js"></script>
 
 		<script src="test/tests.js"></script>
 		<!-- end Tests -->

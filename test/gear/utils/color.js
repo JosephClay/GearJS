@@ -10,8 +10,6 @@ test('Color', function() {
 	ok(_.isString(rand1) && rand1[0] === '#' && rand1.length === 7, 'Random color generated');
 	ok(Color.getRandom() !== Color.getRandom() !== Color.getRandom(), 'Multiple random colors are not the same');
 	
-	ok(Color.getUnique() * 1 < Color.getUnique() * 1, 'Unique colors are sequencial');
-	
 	ok(Color.rgbToHex(0,0,0) === '000000', 'rgb to hex on 0,0,0');
 	ok(Color.rgbToHex(255,255,255) === 'ffffff', 'rgb to hex on 255,255,255');
 
