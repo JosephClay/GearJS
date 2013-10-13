@@ -12,7 +12,7 @@
 	var Sprite = function(config) {
 		Gear.Shape.call(this, config);
 
-		this.spriteSheet = this.sprite || config.spritesheet;
+		this.spritesheet = this.spritesheet || config.spritesheet;
 		this.framerate = new Gear.Framerate(this.getFPS());
 
 		/**
@@ -46,11 +46,15 @@
 			}
 		};
 
-		if (config.initial) {
+		if (this.initial || config.initial) {
 			this._isPaused = false;
-			this.gotoAndStop(config.initial);
+			this.gotoAndStop(this.initial || config.initial);
 		}
+
+		if (this.initialize) { this.initialize(); }
 	};
+
+	Sprite.extend = Gear.Util.extend;
 
 	_.extend(Sprite.prototype, Gear.Shape.prototype, {
 
@@ -172,7 +176,7 @@
 			animation = animation || '';
 			idx = idx || 0;
 
-			var spriteAnimation = this.spriteSheet.getAnimation(animation);
+			var spriteAnimation = this.spritesheet.getAnimation(animation);
 			if (!spriteAnimation) { return; }
 
 			this._index = idx;
@@ -189,7 +193,7 @@
 		 * @return {Number} FPS
 		 */
 		getFPS: function() {
-			return this.attr.framerate || this.spriteSheet.framerate || Gear.Tick.getFPS();
+			return this.attr.framerate || (this.spriteSheet) ? this.spriteSheet.framerate : Gear.Tick.getFPS();
 		},
 
 		setFPS: function(fps) {

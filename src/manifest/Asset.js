@@ -1,4 +1,4 @@
-(function(Gear) {
+(function(Gear, Constants) {
 
 		// Time in milliseconds to assume a load has failed.
 	var LOAD_TIMEOUT = 8000,
@@ -56,7 +56,7 @@
 
 		_parseURI: function(path) {
 			if (!path) { return null; }
-			return path.match(REGEX.FILE_PATTERN);
+			return path.match(Constants.REGEX.FILE_PATTERN);
 		},
 
 		// Determine the type of the object using common extensions. Note that the type can be passed in with the load item if it is an unusual extension.
@@ -147,4 +147,4 @@
 
 	Gear.Asset = Asset;
 
-}(Gear));
+}(Gear, Gear.Constants));
