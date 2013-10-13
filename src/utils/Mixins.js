@@ -63,19 +63,7 @@
 		toPx: function(param) {
 			return (+param) + 'px';
 		},
-
-		hasMethods: function(obj) {
-			var key, val;
-			for (key in obj) {
-				val = obj[key];
-				if (val && _.isFunction(val)) {
-					return true;
-				}
-			}
-
-			return false;
-		},
-
+		
 		duplicate: function(obj) {
 			return JSON.parse(JSON.stringify(obj));
 		}
