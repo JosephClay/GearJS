@@ -1,5 +1,7 @@
-// Xaja.js 0.0.1
-// Xaja may be freely distributed under the MIT license.
+/**
+ * Xaja.js 0.0.1
+ * https://github.com/JosephClay/Xaja
+ */
 var Xaja = (function(win) {
     
     var _getXHR = function() { // Get XMLHttpRequest object

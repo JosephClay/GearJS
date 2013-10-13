@@ -1,7 +1,9 @@
+/**
+ * Signal.js 0.0.1
+ * https://github.com/JosephClay/Signal
+ */
 (function(Gear, Constants) {
 
-	// Signal.js 0.0.1
-	// Signal may be freely distributed under the MIT license.
 	var Signal = (function() {
 
 		var _NAME_REGEX = /\w([^:\.])*/g;
@@ -227,16 +229,25 @@
 	}());
 
 	_.extend(Signal.prototype, {
-		triggerAndBubble: function(eventName, e, compareShape) {
+		/**
+		 * Trigger and bubble an event on a node.
+		 * Simulates DOM-like bubbling of events, allowing for
+		 * bindings on low-level nodes
+		 * 
+		 * @param  {String} eventName
+		 * @param  {Event} e
+		 * @param  {Boolean} compareShape
+		 */
+		triggerAndBubble: function(eventName, e, compareNode) {
             var okayToRun = true;
 
             if (e && this.nodeType === Constants.NODE_TYPE.SHAPE) {
                 e.targetNode = this;
             }
 
-            if (eventName === Constants.EVT.MOUSEENTER && compareShape && this._id === compareShape._id) {
+            if (eventName === Constants.EVT.MOUSEENTER && compareNode && this._id === compareNode._id) {
                 okayToRun = false;
-            } else if (eventName === Constants.EVT.MOUSELEAVE && compareShape && this._id === compareShape._id) {
+            } else if (eventName === Constants.EVT.MOUSELEAVE && compareNode && this._id === compareNode._id) {
                 okayToRun = false;
             }
 
@@ -246,8 +257,8 @@
 
             // simulate event bubbling
             if (e && !e.cancelBubble && this.parent) {
-                if (compareShape && compareShape.parent) {
-                    this.triggerAndBubble.call(this.parent, eventName, e, compareShape.parent);
+                if (compareNode && compareNode.parent) {
+                    this.triggerAndBubble.call(this.parent, eventName, e, compareNode.parent);
                 } else {
                     this.triggerAndBubble.call(this.parent, eventName, e);
                 }
