@@ -1,3 +1,4 @@
+// TODO: Spline unit tests
 test('Spline', function() {
 	
 	var stage = new Gear.Stage({
@@ -27,4 +28,6 @@ test('Spline', function() {
 
 	stage.add(layer);
 	layer.add(spline);
+
+	ok(spline instanceof Gear.Spline, 'spline created');
 });

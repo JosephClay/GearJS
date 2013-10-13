@@ -1,3 +1,4 @@
+// TODO: Polygon unit tests
 test('Polygon', function() {
 	
 	var stage = new Gear.Stage({
@@ -24,4 +25,6 @@ test('Polygon', function() {
 
 	stage.add(layer);
 	layer.add(polygon);
+
+	ok(polygon instanceof Gear.Polygon, 'polygon created');
 });

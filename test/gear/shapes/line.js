@@ -1,3 +1,4 @@
+// TODO: Line unit tests
 test('Line', function() {
 
 	var stage = new Gear.Stage({
@@ -59,4 +60,6 @@ test('Line', function() {
 	layer.add(redLine);
 	layer.add(greenLine.move({ y: -15 }));
 	layer.add(blueLine.move({ y: 15 }));
+
+	ok(redLine instanceof Gear.Line, 'red line created');
 });

@@ -1,3 +1,4 @@
+// TODO: Circle unit tests
 test('Circle', function() {
 
 	var stage = new Gear.Stage({
@@ -22,4 +23,6 @@ test('Circle', function() {
 
 	stage.add(layer);
 	layer.add(circle);
+
+	ok(circle instanceof Gear.Circle, 'circle created');
 });

@@ -1,3 +1,4 @@
+// TODO: Wedge unit tests
 test('Wedge', function() {
 	
 	var stage = new Gear.Stage({
@@ -20,4 +21,6 @@ test('Wedge', function() {
 
 	stage.add(layer);
 	layer.add(wedge);
+
+	ok(wedge instanceof Gear.Wedge, 'wedge created');
 });

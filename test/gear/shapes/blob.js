@@ -1,3 +1,4 @@
+// TODO: Blob unit tests
 test('Blob', function() {
 
 	var stage = new Gear.Stage({
@@ -23,4 +24,6 @@ test('Blob', function() {
 
 	stage.add(layer);
 	layer.add(blob);
+
+	ok(blob instanceof Gear.Blob, 'blob created');
 });

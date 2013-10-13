@@ -1,3 +1,4 @@
+// TODO: Rect unit tests
 test('Rect', function() {
 
 	var stage = new Gear.Stage({
@@ -29,4 +30,6 @@ test('Rect', function() {
 	stage.add(layer);
 	layer.add(rect);
 	layer.add(roundedRect);
+
+	ok(rect instanceof Gear.Rect, 'rect created');
 });

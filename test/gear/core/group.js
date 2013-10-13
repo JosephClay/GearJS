@@ -1,4 +1,4 @@
-// TODO: Unit test groups
+// TODO: Groups unit tests
 test('Group', function() {
 
 	var layer = new Gear.Layer({
@@ -13,5 +13,4 @@ test('Group', function() {
 	layer.add(group);
 
 	ok(group instanceof Gear.Group, 'group created');
-
 });

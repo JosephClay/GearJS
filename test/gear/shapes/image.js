@@ -1,4 +1,8 @@
+// TODO: Image unit tests
 test('Image', function() {
+
+	var img = new Image();
+	img.src = 'http://placehold.it/50x50';
 
 	var stage = new Gear.Stage({
 			container: 'Test10',
@@ -8,19 +12,15 @@ test('Image', function() {
 		layer = new Gear.Layer({
 			width: 100,
 			height: 100
+		}),
+		image = new Gear.Image({
+			image: img,
+			x: 15,
+			y: 15
 		});
 
 	stage.add(layer);
+	layer.add(image);
 
-	var img = new Image();
-	img.onload = function() {
-		var image = new Gear.Image({
-			x: 15,
-			y: 15,
-			image: this
-		});
-		layer.add(image);
-	};
-	img.src = 'http://placehold.it/50x50';
-
+	ok(image instanceof Gear.Image, 'image created');
 });

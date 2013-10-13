@@ -1,3 +1,4 @@
+// TODO: Ellipse unit tests
 test('Ellipse', function() {
 
 	var stage = new Gear.Stage({
@@ -18,4 +19,6 @@ test('Ellipse', function() {
 
 	stage.add(layer);
 	layer.add(ellipse);
+
+	ok(ellipse instanceof Gear.Ellipse, 'ellipse created');
 });

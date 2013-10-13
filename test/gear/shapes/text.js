@@ -1,3 +1,4 @@
+// TODO: Text unit tests
 test('Text', function() {
 
 	var stage = new Gear.Stage({
@@ -20,4 +21,6 @@ test('Text', function() {
 
 	stage.add(layer);
 	layer.add(text);
+
+	ok(text instanceof Gear.Text, 'text created');
 });
