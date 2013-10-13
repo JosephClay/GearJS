@@ -20,16 +20,32 @@
 		Fill.call(this, config);
 
 		this._image = config.image;
-		this._repeat = config.repeat || Pattern.REPEAT.repeat;
-		this._x = config.x || 0;
-		this._x = config.y || 0;
-		this._scale = config.scale || { x: 1, y: 1 };
-		this._offset = config.offset || { x: 0, y: 0 };
-		this._rotate = config.rotate || 0;
+		this._repeat = config.repeat || Pattern.defaults.repeat;
+		this._x = config.x || Pattern.defaults.x;
+		this._y = config.y || Pattern.defaults.y;
+		this._scale = config.scale || _.extend({}, Pattern.defaults.scale);
+		this._offset = config.offset || _.extend({}, Pattern.defaults.offset);
+		this._rotate = config.rotate || Pattern.defaults.rotate;
+	};
+
+	Pattern.REPEAT = {
+		repeat: 'repeat',
+		repeatX: 'repeat-x',
+		repeatY: 'repeat-y',
+		noRepeat: 'no-repeat'
+	};
+
+	Pattern.defaults = {
+		x: 0,
+		y: 0,
+		rotate: 0,
+		scale: { x: 1, y: 1 },
+		offset: { x: 0, y: 0 },
+		repeat: Pattern.REPEAT.repeat
 	};
 
 	_.extend(Pattern.prototype, Fill.prototype, {
-		fill: function(canvas) {
+		draw: function(canvas) {
 			if (!this.isEnabled()) { return; }
 
 			var context = canvas.getContext(),
@@ -56,15 +72,24 @@
 
 			context.fillStyle = context.createPattern(this._image, this._repeat);
 			context.fill();
+		},
+
+		toJSON: function() {
+			return {
+				image: this._image.src,
+				repeat: this._repeat,
+				x: this._x,
+				y: this._y,
+				scale: this._scale,
+				offset: this._offset,
+				rotate: this._rotate
+			};
+		},
+
+		toString: function() {
+			return '[Fill Pattern]';
 		}
 	});
-
-	Pattern.REPEAT = {
-		repeat: 'repeat',
-		repeatX: 'repeat-x',
-		repeatY: 'repeat-y',
-		noRepeat: 'no-repeat'
-	};
 
 	Fill.Pattern = Pattern;
 

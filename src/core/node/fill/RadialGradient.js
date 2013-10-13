@@ -1,38 +1,48 @@
 (function(Gear, Fill) {
 	
 	/**
-	 * Linear Gradient
+	 * Radial Gradient
 	 * @param  {Object} config
 	 * @param  {Point} config.start
+	 * @param  {Number} config.startRadius
 	 * @param  {Point} config.end
+	 * @param  {Number} config.endRadius
 	 * @param  {Array} config.colorStops array of { pos, color }
 	 * @example
 	 * var gradient = new Gear.Fill.LinearGradient({
 	 * 		start: { x: 0, y: 0 },
-	 * 		end: { x: 50, y: 50 },
+	 * 		startRadius: 0,
+	 * 		end: { x: 0, y: 0 },
+	 * 		endRadius: 0,
 	 * 		colorStops: [
 	 * 			{ pos: 0, color: 'black '},
 	 * 			{ pos: 50, color: 'white '}
 	 * 		]
 	 * });
 	 */
-	var LinearGradient = function(config) {
+	var RadialGradient = function(config) {
 		Fill.call(this, config);
 
 		this._start = Gear.Point.parse(config.start);
+		this._startRadius = config.startRadius || RadialGradient.defaults.startRadius;
 		this._end = Gear.Point.parse(config.end);
+		this._endRadius = config.endRadius || RadialGradient.defaults.endRadius;
 		this._colorStops = this._buildColorStops(config.colorStops);
 	};
 
-	_.extend(LinearGradient.prototype, Fill.prototype, {
+	RadialGradient.defaults = {
+		startRadius: 0,
+		endRadius: 0
+	};
 
-		fill: function(canvas) {
+	_.extend(RadialGradient.prototype, Fill.prototype, {
+		draw: function(canvase) {
 			if (!this.isEnabled()) { return; }
 
 			var context = canvas.getContext(),
-				grad = context.createLinearGradient(this._start.x, this._start.y, this._end.x, this._end.y);
+				grad = context.createRadialGradient(this._start.x, this._start.y, this._startRadius, this._end.x, endthis._.y, this._endRadius);
 
-			this._applyColorStops(grad);
+			this._applyColorStops(grad, colorStops);
 
 			context.fillStyle = grad;
 			context.fill();
@@ -61,10 +71,23 @@
 			}
 
 			return colorStops;
-		}
+		},
 
+		toJSON: function() {
+			return {
+				start: this._start,
+				startRadius: this._startRadius,
+				end: this._end,
+				endRadius: this._endRadius,
+				colorStops: this._colorStops
+			};
+		},
+
+		toString: function() {
+			return '[Fill RadialGradient]';
+		}
 	});
 
-	Fill.LinearGradient = LinearGradient;
+	Fill.RadialGradient = RadialGradient;
 
 }(Gear, Gear.Fill));

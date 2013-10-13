@@ -2,22 +2,6 @@
 	
 	var _dummyFunction = function() {};
 
-	var _parseAttributes = function(config) {
-		config = config || {};
-
-		// Stroke objects
-		if (config.stroke) {
-			config.stroke = new Gear.Stroke(config.stroke);
-		}
-
-		// Fill objects
-		if (config.fill) {
-			config.fill = Gear.Fill.parse(config.fill);
-		}
-
-		return config;
-	};
-
 	/**
 	 * Nodes are entities that can be transformed, layered, and have bound events.
 	 * The stage, layers, groups, and shapes all extend Node.
@@ -28,14 +12,32 @@
 		
 		this._id = Gear.id('node');
 		
-		// TODO: Dont generate this here
-		this._absTransform = new Gear.Transform();
-		this._trans = new Gear.Transform();
-
-		this.attr = _parseAttributes(config);
+		this.attr = Node.parse(config);
 		this.index = null;
 		this.nodeType = Constants.NODE_TYPE.NODE;
 		this.determineComposition();
+	};
+
+
+	Node.parse = function(attr) {
+		attr = attr || {};
+
+		// Stroke object
+		if (attr.stroke) {
+			attr.stroke = new Gear.Stroke(attr.stroke);
+		}
+
+		// Fill objects
+		if (attr.fill) {
+			attr.fill = Gear.Fill.parse(attr.fill);
+		}
+
+		// Shadow object
+		if (attr.shadow) {
+			attr.shadow = new Gear.Shadow(attr.shadow);
+		}
+
+		return attr;
 	};
 
 	_.extend(Node.prototype, Gear.Signal.prototype, {
@@ -279,7 +281,7 @@
 		 * @return {Transform} absoluteTransform
 		 */
 		getAbsoluteTransform: function() {
-			var absoluteTransform = this._absTransform.reset(),
+			var absoluteTransform = this._getAbsTrans(),
 				nodeTransform;
 
 			var family = [this],
@@ -305,7 +307,7 @@
 		 * @return {Transform} matrix
 		 */
 		getTransform: function() {
-			var trans = this._trans.reset(),
+			var trans = this._getTrans(),
 				x = this.getX(),
 				y = this.getY(),
 				rotation = this.getRotation(),
@@ -337,10 +339,6 @@
 			}
 
 			return trans;
-		},
-
-		setTransform: function(trans) {
-			// TODO: Set transform
 		},
 
 		clearTransform: function() {
@@ -463,7 +461,6 @@
 		getId: function() {
 			return this.attr.id || '';
 		},
-
 		setId: function(id) {
 			this.attr.id = id;
 			return this;
@@ -472,7 +469,6 @@
 		getName: function() {
 			return this.attr.name || '';
 		},
-
 		setName: function(name) {
 			this.attr.name = name;
 			return this;
@@ -482,7 +478,6 @@
 			var val = this.attr.x;
 			return (!_.exists(val)) ? 0 : val;
 		},
-
 		setX: function(val) {
 			this.attr.x = ~~val;
 			return this;
@@ -492,7 +487,6 @@
 			var val = this.attr.y;
 			return (!_.exists(val)) ? 0 : val;
 		},
-
 		setY: function(val) {
 			this.attr.y = ~~val;
 			return this;
@@ -504,7 +498,6 @@
 		getIndex: function() {
 			return this.z;
 		},
-
 		setZ: function(idx) {
 			idx = ~~idx;
 
@@ -524,7 +517,6 @@
 		getWidth: function() {
 			return this.attr.width || 0;
 		},
-
 		setWidth: function(width) {
 			this.attr.width = ~~width;
 			return this;
@@ -533,7 +525,6 @@
 		getHeight: function() {
 			return this.attr.height || 0;
 		},
-
 		setHeight: function(height) {
 			this.attr.height = ~~height;
 			return this;
@@ -554,12 +545,10 @@
 
 			return absOpacity;
 		},
-
 		getOpacity: function() {
 			var val = this.attr.opacity;
 			return (!_.exists(val)) ? 1 : val;
 		},
-
 		setOpacity: function(val) {
 			this.attr.opacity = val;
 			return this;
@@ -568,7 +557,6 @@
 		getListening: function() {
 			return !!this.attr.listening;
 		},
-
 		setListening: function(isListening) {
 			this.attr.listening = !!isListening;
 			return this;
@@ -578,7 +566,6 @@
 			this.setVisible(true);
 			return this;
 		},
-
 		hide: function() {
 			this.setVisible(false);
 			return this;
@@ -588,7 +575,6 @@
 			var isVisible = this.attr.visible;
 			return !_.exists(isVisible) ? true : !!isVisible;
 		},
-
 		setVisible: function(isVisible) {
 			this.attr.visible = !!isVisible;
 			return this;
@@ -597,7 +583,6 @@
 		getDraw: function() {
 			return this.attr.draw;
 		},
-
 		setDraw: function(val) {
 			this.attr.draw = _.isFunction(val) ? val : null;
 			this.determineComposition();
@@ -607,7 +592,6 @@
 		getHit: function() {
 			return this.attr.hit;
 		},
-
 		setHit: function(val) {
 			this.attr.hit = _.isFunction(val) ? val : null;
 			this.determineComposition();
@@ -623,12 +607,10 @@
 			this.setRotation(this.getRotation() + deg);
 			return this;
 		},
-
 		getRotation: function() { // degrees
 			var val = this.attr.rotation;
 			return (!_.exists(val)) ? 0 : val;
 		},
-
 		setRotation: function(val) { // degrees
 			this.attr.rotation = val;
 			return this;
@@ -643,12 +625,10 @@
 			this.setRotate(this.getRotate() + deg);
 			return this;
 		},
-		
 		getRotate: function() { // degrees
 			var val = this.attr.rotate;
 			return (!_.exists(val)) ? 0 : val;
 		},
-
 		setRotate: function(val) { // degrees
 			this.attr.rotate = val;
 			return this;
@@ -666,7 +646,6 @@
 				y: this.getHeight() / 2
 			});
 		},
-
 		setPivot: function(point) {
 			this.attr.pivot = Gear.point.parse(point);
 			return this;
@@ -676,7 +655,6 @@
 			var scale = this.attr.scale || (this.attr.scale = { x: 1, y: 1 });
 			return scale;
 		},
-
 		setScale: function(point) {
 			if (!point) { return; }
 
@@ -692,7 +670,6 @@
 			var skew = this.attr.skew || (this.attr.skew = { x: 0, y: 0 });
 			return skew;
 		},
-
 		setSkew: function(point) {
 			if (!point) { return; }
 
@@ -708,7 +685,6 @@
 			var offset = this.attr.offset || (this.attr.offset = { x: 0, y: 0 });
 			return offset;
 		},
-
 		setOffset: function(point) {
 			if (!point) { return; }
 		
@@ -726,7 +702,6 @@
 				height: this.getHeight()
 			};
 		},
-
 		setSize: function(size) {
 			if (!size) { return; }
 
@@ -755,14 +730,12 @@
 
 			return this;
 		},
-
 		getPosition: function() {
 			return {
 				x: this.getX(),
 				y: this.getY()
 			};
 		},
-
 		setPosition: function(point) {
 			if (!point) { return; }
 
@@ -771,6 +744,13 @@
 			this.setX(point.x);
 			this.setY(point.y);
 			return this;
+		},
+
+		_getAbsTrans: function() {
+			return this._absTrans || (this._absTrans = new Gear.Transform().reset());
+		},
+		_getTrans: function() {
+			return this._trans || (this._trans = new Gear.Transform().reset());
 		},
 
 		/**

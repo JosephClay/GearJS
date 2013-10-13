@@ -1,49 +1,42 @@
 (function(Gear, Fill) {
 	
 	/**
-	 * Radial Gradient
+	 * Linear Gradient
 	 * @param  {Object} config
 	 * @param  {Point} config.start
-	 * @param  {Number} config.startRadius
 	 * @param  {Point} config.end
-	 * @param  {Number} config.endRadius
 	 * @param  {Array} config.colorStops array of { pos, color }
 	 * @example
 	 * var gradient = new Gear.Fill.LinearGradient({
 	 * 		start: { x: 0, y: 0 },
-	 * 		startRadius: 0,
-	 * 		end: { x: 0, y: 0 },
-	 * 		endRadius: 0,
+	 * 		end: { x: 50, y: 50 },
 	 * 		colorStops: [
 	 * 			{ pos: 0, color: 'black '},
 	 * 			{ pos: 50, color: 'white '}
 	 * 		]
 	 * });
 	 */
-	var RadialGradient = function(config) {
+	var LinearGradient = function(config) {
 		Fill.call(this, config);
 
 		this._start = Gear.Point.parse(config.start);
-		this._startRadius = config.startRadius || 0;
 		this._end = Gear.Point.parse(config.end);
-		this._endRadius = config.endRadius || 0;
 		this._colorStops = this._buildColorStops(config.colorStops);
 	};
 
-	_.extend(RadialGradient.prototype, Fill.prototype, {
-		fill: function(canvase) {
+	_.extend(LinearGradient.prototype, Fill.prototype, {
+		draw: function(canvas) {
 			if (!this.isEnabled()) { return; }
 
 			var context = canvas.getContext(),
-				grad = context.createRadialGradient(this._start.x, this._start.y, this._startRadius, this._end.x, endthis._.y, this._endRadius);
+				grad = context.createLinearGradient(this._start.x, this._start.y, this._end.x, this._end.y);
 
-			this._applyColorStops(grad, colorStops);
+			this._applyColorStops(grad);
 
 			context.fillStyle = grad;
 			context.fill();
 		},
 
-		// TODO: This is duplicated in LinearGradient - generalize
 		_applyColorStops: function(grad) {
 			var colorStops = this._colorStops,
 				idx = 0, length = colorStops.length,
@@ -67,9 +60,21 @@
 			}
 
 			return colorStops;
+		},
+
+		toJSON: function() {
+			return {
+				start: this._start,
+				end: this._end,
+				colorStops: this._colorStops
+			};
+		},
+
+		toString: function() {
+			return '[Fill LinearGradient]';
 		}
 	});
 
-	Fill.RadialGradient = RadialGradient;
+	Fill.LinearGradient = LinearGradient;
 
 }(Gear, Gear.Fill));

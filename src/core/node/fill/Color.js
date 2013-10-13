@@ -13,10 +13,18 @@
 	};
 
 	_.extend(Color.prototype, Fill.prototype, {
-		fill: function(canvas) {
+		draw: function(canvas) {
 			var context = canvas.getContext();
 			context.fillStyle = this._color;
 			context.fill();
+		},
+
+		toJSON: function() {
+			return this._color;
+		},
+
+		toString: function() {
+			return '[Fill Color]';
 		}
 	});
 
