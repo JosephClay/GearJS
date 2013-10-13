@@ -1,5 +1,3 @@
-// TODO: A lot listening for "shape" instead of "node"... node needs to be more robust
-
 (function(Gear, Constants, Global, Util) {
 
 	var IN_DBL_CLICK_WINDOW = false,

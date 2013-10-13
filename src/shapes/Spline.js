@@ -58,11 +58,9 @@
 				}
 			}
 
-			// TODO: This paradigm is being used a lot, fix
-			var stroke = this.getStroke(),
-				isEnabled = stroke ? stroke.isEnabled() : false;
-			if (!isEnabled) { return; }
-			stroke.stroke(canvas, this);
+			var stroke = this.getStroke();
+			if (!stroke) { return; }
+			stroke.draw(canvas, this);
 		},
 
 		_setAllPoints: function() {

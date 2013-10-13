@@ -22,7 +22,6 @@
 			return this._colorKey;
 		},
 
-		// TODO: Move this to node
 		drawScene: function(canvas) {
 			// Get the draw. Use getDraw to allow an attr
 			// to take precedence, otherwise, use the draw
@@ -66,17 +65,30 @@
 		getLineJoin: function() {
 			return this.attr.lineJoin;
 		},
-		setLineJoin: function(val) {
-			this.attr.lineJoin = val;
+		setLineJoin: function(joint) {
+			this.attr.lineJoin = joint;
 			return this;
 		},
 
-		// TODO: Document definitions for many of these
+		/**
+		 * Whether a stroke is set
+		 * @return {Boolean}
+		 */
+		hasStroke: function() {
+			var stroke = this.getStroke();
+			return (stroke && stroke.isEnabled() && stroke.getWidth() > 0);
+		},
 		getStroke: function() {
 			return this.attr.stroke;
 		},
-		setStroke: function(val) {
-			this.attr.stroke = val;
+		setStroke: function(config) {
+			if (config instanceof Gear.Stroke) {
+				this.attr.stroke = config;
+				return this;
+			}
+
+			this.attr.stroke = new Gear.Stroke(config);
+			return this;
 		},
 
 		/**
@@ -84,60 +96,39 @@
 		 * @return {Boolean}
 		 */
 		hasFill: function() {
-			return !!this.getFill();
+			var fill = this.getFill();
+			return (fill && fill.isEnabled());
 		},
 		getFill: function() {
 			return this.attr.fill;
 		},
-		setFill: function(val) {
-			this.attr.fill = val;
+		setFill: function(fill) {
+			if (Gear.Fill.isFill(fill)) {
+				this.att.fill = fill;
+			}
+			
+			this.attr.fill = Gear.Fill.parse(fill);
+			return this;
 		},
-		
-		isShadowEnabled: function() {
-			return this.getShadowEnabled();
-		},
-		getShadowEnabled: function() {
-			var val = this.attr.shadowEnabled;
-			return (!_.exists(val)) ? true : val;
-		},
-		setShadowEnabled: function(val) {
-			this.attr.shadowEnabled = val;
-		},
-		
+
 		/**
 		 * Whether a shadow is set
 		 * @return {Boolean}
 		 */
 		hasShadow: function() {
 			var shadow = this.getShadow();
-			return (shadow.opacity !== 0 && !!(shadow.color || shadow.blur || shadow.offset.x || shadow.offset.y));
+			return (shadow && shadow.isEnabled() && shadow.getOpacity() !== 0);
 		},
 		getShadow: function() {
-			var shadow = this.attr.shadow || (this.attr.shadow = {
-				color: '',
-				blur: 0,
-				opacity: 0,
-				offset: { x: 0, y: 0 }
-			});
-			return shadow;
+			return this.attr.shadow;
 		},
 		setShadow: function(config) {
-			config = config || {};
-			var shadow = this.getShadow();
-
-			if (_.exists(config.color)) {
-				shadow.color = config.color;
-			}
-			if (_.exists(config.blur)) {
-				shadow.blur = config.blur;
-			}
-			if (_.exists(config.opacity)) {
-				shadow.opacity = config.opacity;
-			}
-			if (config.offset) {
-				config.offset = Gear.point.parse(config.offset);
+			if (config instanceof Gear.Shadow) {
+				this.attr.shadow = config;
+				return this;
 			}
 
+			this.attr.shadow = new Gear.Shadow(config);
 			return this;
 		},
 

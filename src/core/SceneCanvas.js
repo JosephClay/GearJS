@@ -13,10 +13,9 @@
 		 */
 		_fill: function(shape, skipShadow) {
 			var context = this.getContext(),
-				fill = shape.getFill(),
-				isEnabled = fill ? fill.isEnabled() : false;
+				fill = shape.getFill();
 
-			if (!fill || !isEnabled) { return; }
+			if (!fill || !fill.isEnabled()) { return; }
 
 			context.save();
 
@@ -24,7 +23,7 @@
 				this._applyShadow(shape);
 			}
 
-			fill.fill(this);
+			fill.draw(this);
 
 			context.restore();
 
@@ -39,29 +38,15 @@
 
 			if (!stroke) { return; }
 
-			stroke.stroke(this, shape);
+			stroke.draw(this, shape);
 		},
 		
 		_applyShadow: function(shape) {
-			var context = this.getContext();
+			var shadow = shape.getShadow();
 
-			if (!shape.hasShadow() && !shape.isShadowEnabled()) { return; }
+			if (!shadow || !shadow.isEnabled()) { return; }
 
-			var absOpacity = shape.getAbsoluteOpacity(),
-				shadow = shape.getShadow(),
-				color = shadow.color || 'black',
-				blur = shadow.blur || 5,
-				opacity = shadow.opacity || 0,
-				offset = shadow.offset;
-
-			if (opacity) {
-				context.globalAlpha = opacity * absOpacity;
-			}
-
-			context.shadowColor = color;
-			context.shadowBlur = blur;
-			context.shadowOffsetX = offset.x;
-			context.shadowOffsetY = offset.y;
+			shadow.draw(this, shape);
 		},
 
 		toString: function() {

@@ -38,9 +38,8 @@
 			}
 
 			var stroke = this.getStroke();
-				isEnabled = stroke ? stroke.isEnabled() : false;
-			if (!isEnabled) { return; }
-			stroke.stroke(canvas, this);
+			if (!stroke) { return; }
+			stroke.draw(canvas, this);
 		},
 
 		getPoints: function() {

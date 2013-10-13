@@ -45,17 +45,22 @@
 				this._isCancelled = true;
 			}
 		};
+
+		if (config.initial) {
+			this._isPaused = false;
+			this.gotoAndStop(config.initial);
+		}
 	};
 
 	_.extend(Sprite.prototype, Gear.Shape.prototype, {
 
 		draw: function(canvas) {
-			if (this._isPaused) { return; }
+			// if (this._isPaused) { return; }
 			
 			var animation = this._animation;
 			if (!animation) { return; }
 
-			var frame = animation[this._index];
+			var frame = animation.frames[this._index];
 			if (!frame) { return; }
 
 			canvas.getContext().drawImage(frame.image, frame.x, frame.y, frame.width, frame.height, -frame.regX, -frame.regY, frame.width, frame.height);

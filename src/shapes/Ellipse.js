@@ -30,7 +30,7 @@
 			canvas.fillAndStroke(this);
 		},
 
-		// TODO: ellipse.rotate(1) does not rotate on its axis
+		// BUG: ellipse.rotate(45) does not rotate on its axis
 		// Override width and height for our purposes
 		getWidth: function() {
 			return (this.getRadius().x * 2);

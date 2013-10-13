@@ -39,13 +39,15 @@
 					anim = {
 						name: animationName,
 						next: animationDefinition.next,
-						x: _.exists(animationDefinition.x) ? (animationDefinition.x + this._regX) : this._regX,
-						y: _.exists(animationDefinition.y) ? (animationDefinition.y + this._regY) : this._regY,
-						width: _.exists(animationDefinition.width) ? animationDefinition.width : this._frameWidth,
-						height: _.exists(animationDefinition.height) ? animationDefinition.height : this._frameHeight
+						reverse: animationDefinition.reverse,
+						regX: _.isNumber(animationDefinition.x) ? (animationDefinition.x + this._regX) : this._regX,
+						regY: _.isNumber(animationDefinition.y) ? (animationDefinition.y + this._regY) : this._regY,
+						width: _.isNumber(animationDefinition.width) ? animationDefinition.width : this._frameWidth,
+						height: _.isNumber(animationDefinition.height) ? animationDefinition.height : this._frameHeight
 					};
 
 					anim.frames = this._calculateFrames(anim, animationDefinition.frames || []);
+					if (anim.reverse) { anim.frames.reverse(); }
 
 				this._animations[animationName] = anim;
 			}
@@ -62,10 +64,12 @@
 				frame = frames[idx];
 
 				frame.image = this._image;
-				frame.width = _.exists(frame.width) ? frame.width : _.exists(animation.width) ? animation.width : this._frameWidth;
-				frame.height = _.exists(frame.height) ? frame.height : _.exists(animation.height) ? animation.height : this._frameHeight;
-				frame.x = _.exists(frame.x) ? ((frame.x + animation.x) + (idx * col)) : (animation.x + (idx * col));
-				frame.y = _.exists(frame.y) ? ((frame.y + animation.y) + (idx * row)) : (animation.y + (idx * row));
+				frame.width = _.isNumber(frame.width) ? frame.width : _.isNumber(animation.width) ? animation.width : this._frameWidth;
+				frame.height = _.isNumber(frame.height) ? frame.height : _.isNumber(animation.height) ? animation.height : this._frameHeight;
+				frame.x = _.isNumber(frame.x) ? (frame.x + (idx * col)) : (idx * col);
+				frame.y = _.isNumber(frame.y) ? (frame.y + (idx * row)) : (idx * row);
+				frame.regX = _.isNumber(frame.regX) ? frame.regX : animation.regX;
+				frame.regY = _.isNumber(frame.regY) ? frame.regY : animation.regY;
 				
 				if (idx < frame.idx) {
 					this._addDeltaFrames(animation, idx, frame.idx, frame, arr);
@@ -82,10 +86,13 @@
 			for (; idx < endingIdx; idx++) {
 				arr.push({
 					idx: idx,
+					image: frame.image,
 					width: frame.width,
 					height: frame.height,
-					x: (animation.x + (idx * col)),
-					y: (animation.y + (idx * row))
+					x: (idx * col),
+					y: (idx * row),
+					regX: frame.regX,
+					regY: frame.regY
 				});
 			}
 			return arr;

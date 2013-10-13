@@ -6,9 +6,10 @@
 
 	_.extend(HitCanvas.prototype, Gear.Canvas.prototype, {
 		_fill: function(shape) {
-			var context = this.getContext();
+			var context = this.getContext(),
+				fill = shape.getFill();
 
-			// TODO: Exit if fill isn't enabled
+			if (!fill || !fill.isEnabled()) { return; }
 
 			context.save();
 			context.fillStyle = shape.getColorId();
@@ -18,10 +19,9 @@
 		
 		_stroke: function(shape) {
 			var context = this.getContext(),
-				stroke = shape.getStroke(),
-				isEnabled = stroke ? stroke.isEnabled() : false;
+				stroke = shape.getStroke();
 
-			if (!isEnabled) { return; }
+			if (!stroke || !stroke.isEnabled()) { return; }
 
 			var style = stroke.getStyle();
 			stroke.setStyle(shape.getColorId());

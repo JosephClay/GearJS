@@ -47,6 +47,24 @@
 
 	Gear.Color = {
 		/**
+		 * Get a hex string from a color (#000000)
+		 * @param  {String|Object} color
+		 * @return {String} hex (#000000)
+		 */
+		toHex: function(color) {
+			// hex
+			if (color[0] === '#') { return color; }
+
+			// color string
+			if (color in Constants.COLOR) {
+				rgb = Constants.COLOR[color];
+				return ('#' + this.rgbToHex(rgb[0], rgb[1], rgb[2]));
+			}
+
+			return ('#' + this.rgbToHex(this.toRGB(color)));
+		},
+
+		/**
 		 * Get the RGB components of a color
 		 * @param  {String} color
 		 * @return {Object}
