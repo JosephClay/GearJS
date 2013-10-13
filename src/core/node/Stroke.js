@@ -48,7 +48,7 @@
 				context.lineCap = lineCap;
 			}
 
-			if (dashArray) {
+			if (dashArray && context.setLineDash) {
 				context.setLineDash(dashArray);
 			}
 
