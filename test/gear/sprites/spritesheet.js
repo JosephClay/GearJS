@@ -1,3 +1,4 @@
+// TODO: SpriteSheet unit tests
 test('SpriteSheet', function() {
 
 	var img = new Image();
@@ -21,8 +22,6 @@ test('SpriteSheet', function() {
 			}
 		}
 	});
-
-	console.log('spritesheet: ', spritesheet);
 
 	ok(spritesheet instanceof Gear.SpriteSheet, 'spritesheet is a SpriteSheet');
 	// ok(spritesheet._animations.length, 'spritesheet has animations');
