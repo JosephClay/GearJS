@@ -296,6 +296,10 @@
 		},
 
 		_mousemove: function(evt) {
+			// always call preventDefault for desktop events because some browsers
+			// try to drag and drop the canvas element
+			if (evt.preventDefault) { evt.preventDefault(); }
+			
 			this._setPointerPosition(evt);
 
 			var result = this.getIntersection(this.getPointerPosition());
@@ -324,13 +328,13 @@
 					this.targetNode = null;
 				}
 			}
-
-			// always call preventDefault for desktop events because some browsers
-			// try to drag and drop the canvas element
-			if (evt.preventDefault) { evt.preventDefault(); }
 		},
 
 		_mousedown: function(evt) {
+			// always call preventDefault for desktop events because some browsers
+			// try to drag and drop the canvas element
+			if (evt.preventDefault) { evt.preventDefault(); }
+			
 			this._setPointerPosition(evt);
 			
 			var result = this.getIntersection(this.getPointerPosition()),
@@ -339,13 +343,13 @@
 			Constants.LISTEN_TO_CLICK_OR_TAP = true;
 			this.clickStartNode = node;
 			node.triggerAndBubble(Constants.EVT.MOUSEDOWN, evt);
-
-			// always call preventDefault for desktop events because some browsers
-			// try to drag and drop the canvas element
-			if (evt.preventDefault) { evt.preventDefault(); }
 		},
 
 		_mouseup: function(evt) {
+			// always call preventDefault for desktop events because some browsers
+			// try to drag and drop the canvas element
+			if (evt.preventDefault) { evt.preventDefault(); }
+			
 			this._setPointerPosition(evt);
 
 			var result = this.getIntersection(this.getPointerPosition()),
@@ -370,15 +374,12 @@
 			}
 
 			Constants.LISTEN_TO_CLICK_OR_TAP = false;
-
-			// always call preventDefault for desktop events because some browsers
-			// try to drag and drop the canvas element
-			if (evt.preventDefault) {
-				evt.preventDefault();
-			}
 		},
 
 		_touchstart: function(evt) {
+			// only call preventDefault if the node is listening for events
+			if (evt.preventDefault && node.isListening()) { evt.preventDefault(); }
+			
 			this._setPointerPosition(evt);
 
 			var result = this.getIntersection(this.getPointerPosition()),
@@ -387,14 +388,12 @@
 			Constants.LISTEN_TO_CLICK_OR_TAP = true;
 			this.tapStartNode = node;
 			node.triggerAndBubble(Constants.EVT.TOUCHSTART, evt);
-
-			// only call preventDefault if the node is listening for events
-			if (node.isListening() && evt.preventDefault) {
-				evt.preventDefault();
-			}
 		},
 
 		_touchend: function(evt) {
+			// only call preventDefault if the node is listening for events
+			if (evt.preventDefault && node.isListening()) { evt.preventDefault(); }
+			
 			this._setPointerPosition(evt);
 			
 			var result = this.getIntersection(this.getPointerPosition()),
@@ -419,25 +418,18 @@
 			}
 
 			Constants.LISTEN_TO_CLICK_OR_TAP = false;
-
-			// only call preventDefault if the node is listening for events
-			if (node.isListening() && evt.preventDefault) {
-				evt.preventDefault();
-			}
 		},
 
 		_touchmove: function(evt) {
+			// only call preventDefault if the node is listening for events
+			if (evt.preventDefault && node.isListening()) { evt.preventDefault(); }
+			
 			this._setPointerPosition(evt);
 			
 			var result = this.getIntersection(this.getPointerPosition()),
 				node = (result && result.node) ? result.node : this;
 
 			node.triggerAndBubble(Constants.EVT.TOUCHMOVE, evt);
-			
-			// only call preventDefault if the node is listening for events
-			if (node.isListening() && evt.preventDefault) {
-				evt.preventDefault();
-			}
 		},
 
 		_setMousePosition: function(evt) {
