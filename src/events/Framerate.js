@@ -27,7 +27,7 @@
 
 			this.tickId = Gear.Tick.subscribe('tick', function(e) {
 
-				var delta = e.now - then;
+				var delta = e.now - this.then;
 				if (delta > this.interval) {
 			        // update time stuffs
 			         
@@ -43,11 +43,11 @@
 			        // by subtracting delta (112) % interval (100).
 			        // Hope that makes sense.
 			         
-			        then = now - (delta % this.interval);
+			        this.then = e.now - (delta % this.interval);
 
 			        callback.call();
 		        }
-			});
+			}.bind(this));
 	    },
 
 	    off: function(name) {
