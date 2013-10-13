@@ -37,7 +37,10 @@
 				context.lineTo(point.x, point.y);
 			}
 
-			canvas.stroke(this);
+			var stroke = this.getStroke();
+				isEnabled = stroke ? stroke.isEnabled() : false;
+			if (!isEnabled) { return; }
+			stroke.stroke(canvas, this);
 		},
 
 		getPoints: function() {

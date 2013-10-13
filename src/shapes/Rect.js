@@ -47,8 +47,6 @@
 			
 			context.closePath();
 			canvas.fillAndStroke(this);
-
-			this.rotate(1);
 		},
 
 		getCornerRadius: function() {

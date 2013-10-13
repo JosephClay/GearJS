@@ -5,25 +5,30 @@
 	};
 
 	_.extend(HitCanvas.prototype, Gear.Canvas.prototype, {
-		fill: function(shape) {
-			var context = this.context;
+		_fill: function(shape) {
+			var context = this.getContext();
+
+			// TODO: Exit if fill isn't enabled
+
 			context.save();
 			context.fillStyle = shape.getColorId();
 			context.fill();
 			context.restore();
 		},
 		
-		stroke: function(shape) {
-			var context = this.context,
+		_stroke: function(shape) {
+			var context = this.getContext(),
 				stroke = shape.getStroke(),
-				strokeWidth = shape.getStrokeWidth();
+				isEnabled = stroke ? stroke.isEnabled() : false;
 
-			if (stroke || strokeWidth) {
-				this._applyLineCap(shape);
-				context.lineWidth = strokeWidth || 2;
-				context.strokeStyle = shape.getColorId();
-				context.stroke();
-			}
+			if (!isEnabled) { return; }
+
+			var style = stroke.getStyle();
+			stroke.setStyle(shape.getColorId());
+
+			stroke.stroke();
+			
+			stroke.setStyle(style);
 		},
 
 		toString: function() {

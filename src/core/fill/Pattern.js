@@ -41,16 +41,16 @@
 				offsetX = this._offset.x,
 				offsetY = this._offset.y;
 
-			if (x !== 0 && y !== 0) {
+			if (x !== 0 || y !== 0) {
 				context.translate(x, y);
 			}
 			if (rotate !== 0) {
 				context.rotate(Gear.Math.degToRad(rotate));
 			}
-			if (scaleX !== 1 && scaleY !== 1) {
+			if (scaleX !== 1 || scaleY !== 1) {
 				context.scale(scaleX, scaleY);
 			}
-			if (offsetX !== 0 && offsetY !== 0) {
+			if (offsetX !== 0 || offsetY !== 0) {
 				context.translate(offsetX * -1, offsetY * -1);
 			}
 

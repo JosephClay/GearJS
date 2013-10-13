@@ -2,6 +2,22 @@
 	
 	var _dummyFunction = function() {};
 
+	var _parseAttributes = function(config) {
+		config = config || {};
+
+		// Stroke objects
+		if (config.stroke) {
+			config.stroke = new Gear.Stroke(config.stroke);
+		}
+
+		// Fill objects
+		if (config.fill) {
+			config.fill = Gear.Fill.parse(config.fill);
+		}
+
+		return config;
+	};
+
 	/**
 	 * Nodes are entities that can be transformed, layered, and have bound events.
 	 * The stage, layers, groups, and shapes all extend Node.
@@ -11,9 +27,12 @@
 		Gear.Signal.call(this);
 		
 		this._id = Gear.id('node');
+		
+		// TODO: Dont generate this here
 		this._absTransform = new Gear.Transform();
 		this._trans = new Gear.Transform();
-		this.attr = _.extend({}, config);
+
+		this.attr = _parseAttributes(config);
 		this.index = null;
 		this.nodeType = Constants.NODE_TYPE.NODE;
 		this.determineComposition();
@@ -169,20 +188,23 @@
 		},
 
 		/**
-		 * Convert node into an object
-		 * @return {Object} data
+		 * @return {Object}
 		 */
-		toObject: function() {
-			var data = {},
-				attr = this.attr,
-				key, val;
+		toJSON: function() {
+			var data = { attr: {} },
+				attr = this.attr;
 
-			data.attr = {};
-
-			// Serialize everything except: functions, images, DOM objects, or objects with methods
+			// Serialize everything except for functions and DOM objects
+			var key, val;
 			for (key in attr) {
 				val = attr[key];
-				if (!_.isFunction(val) && !_.isElement(val) && !(_.isObject(val) && _.hasMethods(val))) {
+				if (!_.isFunction(val) && !_.isElement(val)) {
+					
+					if (val && val.toJSON) {
+						data.attr[key] = val.toJSON();
+						continue;
+					}
+
 					data.attr[key] = val;
 				}
 			}
@@ -191,12 +213,8 @@
 
 			return data;
 		},
-
-		/**
-		 * @return {Object}
-		 */
-		toJSON: function() {
-			return this.toObject();
+		toObject: function() {
+			return this.toJSON();
 		},
 
 		/**
@@ -344,12 +362,11 @@
 
 		/**
 		 * Clones the node
-		 * @param  {Object} obj overriding attributes
 		 * @return {Node}
 		 */
-		clone: function(obj) {
-			var node = new Gear[this.getClassName()](this.attr);
-			node.attr = _.extend(node.attr, obj);
+		clone: function() {
+			var config = this.toJSON(),
+				node = new Gear[this.getClassName()](config.attr);
 			return node;
 		},
 
@@ -599,8 +616,8 @@
 
 		/**
 		 * Rotate around the x and y point
-		 * @param  {[type]} deg [description]
-		 * @return {[type]}     [description]
+		 * @param  {Number} deg
+		 * @return {this}
 		 */
 		rotation: function(deg) {
 			this.setRotation(this.getRotation() + deg);
@@ -644,12 +661,10 @@
 		 * @return {Object} { x, y }
 		 */
 		getPivot: function() {
-			var pivot = this.attr.pivot || (this.attr.pivot = {
+			return this.attr.pivot || (this.attr.pivot = {
 				x: this.getWidth() / 2,
 				y: this.getHeight() / 2
 			});
-
-			return pivot;
 		},
 
 		setPivot: function(point) {
@@ -756,7 +771,7 @@
 			this.setX(point.x);
 			this.setY(point.y);
 			return this;
-		},       
+		},
 
 		/**
 		 * Determine if node is listening for events. The node is listening only

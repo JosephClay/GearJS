@@ -79,14 +79,8 @@
 		 * @param  {Shape} shape
 		 */
 		fillAndStroke: function(shape) {
-			var fillEnabled = shape.isFillEnabled();
-			if (fillEnabled) {
-				this.fill(shape);
-			}
-
-			if (shape.getStrokeEnabled()) {
-				this.stroke(shape, shape.hasShadow() && shape.hasFill() && fillEnabled);
-			}
+			this._fill(shape);
+			this._stroke(shape, shape.hasShadow() && shape.hasFill());
 		},
 
 		applyShadow: function(shape, draw) {
@@ -96,13 +90,6 @@
 			draw();
 			context.restore();
 			draw();
-		},
-
-		_applyLineCap: function(shape) {
-			var lineCap = shape.getLineCap();
-			if (lineCap) {
-				this.getContext().lineCap = lineCap;
-			}
 		},
 
 		applyOpacity: function(shape) {

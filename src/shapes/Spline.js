@@ -38,7 +38,6 @@
 			context.beginPath();
 			context.moveTo(points[0].x, points[0].y);
 
-			
 			if (tension !== 0 && pointsLength > 2) { // tension
 
 				context.quadraticCurveTo(allPoints[0].x, allPoints[0].y, allPoints[1].x, allPoints[1].y);
@@ -59,7 +58,11 @@
 				}
 			}
 
-			canvas.stroke(this);
+			// TODO: This paradigm is being used a lot, fix
+			var stroke = this.getStroke(),
+				isEnabled = stroke ? stroke.isEnabled() : false;
+			if (!isEnabled) { return; }
+			stroke.stroke(canvas, this);
 		},
 
 		_setAllPoints: function() {
