@@ -23,7 +23,8 @@
 				opacity = this._opacity;
 
 			if (opacity) {
-				context.globalAlpha = (opacity * shape.getAbsoluteOpacity());
+				// context.globalAlpha = (opacity * shape.getAbsoluteOpacity());
+				context.globalAlpha = 1;
 			}
 
 			context.shadowColor = this._color;
@@ -33,7 +34,7 @@
 		},
 
 		isEnabled: function() {
-			return this._isEnabled && (this._width > 0);
+			return this._isEnabled;
 		},
 		enable: function() {
 			this._isEnabled = true;
@@ -44,13 +45,45 @@
 
 		/**
 		 * Color get set
-		 * @return {[type]} [description]
 		 */
 		getColor: function() {
 			return this._color;
 		},
 		setColor: function(color) {
 			this._color = color;
+			return this;
+		},
+
+		/**
+		 * Blur get set
+		 */
+		getBlur: function() {
+			return this._blur;
+		},
+		setBlur: function(blur) {
+			this._blur = blur;
+			return this;
+		},
+
+		/**
+		 * Opacity get set
+		 */
+		getOpacity: function() {
+			return this._opacity;
+		},
+		setOpacity: function(opacity) {
+			this._opacity = opacity;
+			return this;
+		},
+
+		/**
+		 * Offset get set
+		 */
+		getOffset: function() {
+			return this._offset;
+		},
+		setOffset: function(offset) {
+			this._offset = offset;
 			return this;
 		},
 

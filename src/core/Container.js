@@ -122,14 +122,13 @@
 				clip = this.getClip(),
 				hasClip = (clip.width && clip.height);
 
-			canvas = canvas || layer.getCanvas();
+			if (!canvas && layer) {
+				canvas = layer.getCanvas();
+			}
 
 			if (this.isVisible()) {
-				if (hasClip) {
-					canvas.clip(this);
-				} else {
-					this._drawChildrenScene(canvas);
-				}
+				if (hasClip) { canvas.clip(this); }
+				this._drawChildrenScene(canvas);
 			}
 
 			return this;

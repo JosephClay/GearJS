@@ -179,8 +179,10 @@
 		},
 		
 		_tick: function() {
+			this.dispatch('tick:start');
+
 			this._ticks += 1;
-			
+
 			var e = this.eventObj,
 				time = _.now(),
 				elapsedTime = (time - this._lastTime),
@@ -198,6 +200,8 @@
 			e.runTime = (time - this._pausedTime);
 
 			this.dispatch('tick', e);
+			
+			this.dispatch('tick:end');
 		},
 
 		toString: function() {

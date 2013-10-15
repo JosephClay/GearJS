@@ -28,7 +28,7 @@
 			context.restore();
 
 			if (!skipShadow && shape.hasShadow()) {
-				this.fill(shape, true);
+				this._fill(shape, true);
 			}
 		},
 		
@@ -38,7 +38,19 @@
 
 			if (!stroke) { return; }
 
-			stroke.draw(this, shape);
+			context.save();
+
+			if (!skipShadow && shape.hasShadow()) {
+				this._applyShadow(shape);
+			}
+
+			stroke.draw(this);
+
+			context.restore();
+
+			if (!skipShadow && shape.hasShadow()) {
+				this._stroke(shape, true);
+			}
 		},
 		
 		_applyShadow: function(shape) {

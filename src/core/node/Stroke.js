@@ -28,7 +28,7 @@
 	};
 
 	Stroke.prototype = {
-		draw: function(canvas, shape, skipShadow) {
+		draw: function(canvas) {
 			if (!this.isEnabled()) { return; }
 
 			var context = canvas.getContext(),
@@ -52,19 +52,11 @@
 				context.setLineDash(dashArray);
 			}
 
-			if (!skipShadow && shape.hasShadow()) {
-				canvas.applyShadow(shape);
-			}
-
 			context.lineWidth = width;
 			context.strokeStyle = style;
 			context.stroke();
 
 			context.restore();
-
-			if (!skipShadow && shape.hasShadow()) {
-				this.stroke(canvas, shape, true);
-			}
 		},
 
 		isEnabled: function() {

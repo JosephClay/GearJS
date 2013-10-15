@@ -84,12 +84,16 @@
 		},
 
 		applyShadow: function(shape, draw) {
-			var context = this.getContext();
+			var context = this.getContext(),
+				shadow = shape.hasShadow();
+
+			if (!shadow) { return; }
+
 			context.save();
 			this._applyShadow(shape);
-			draw();
+			draw.call(shape, this);
 			context.restore();
-			draw();
+			draw.call(shape, this);
 		},
 
 		applyOpacity: function(shape) {
@@ -141,7 +145,6 @@
 			context.rect(clip.x, clip.y, clip.width, clip.height);
 			context.clip();
 			this.reset();
-			container._drawChildren(this);
 			context.restore();
 		},
 	
