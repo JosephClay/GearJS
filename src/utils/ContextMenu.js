@@ -1,6 +1,6 @@
 (function(Gear) {
 
-	var _BODY = Gear.DOC.getElementsByTagName('body')[0],
+	var _BODY = Gear.Global.DOC.getElementsByTagName('body')[0],
 		_isPreventing = false;
 
 	Gear.ContextMenu = {
