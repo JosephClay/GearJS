@@ -6,6 +6,24 @@
 			return (value === null || value === undefined) ? false : true;
 		},
 
+		// A faster shuffle
+		// Adapted from: http://bost.ocks.org/mike/shuffle/
+		shuffle: function(arr) {
+			var idx = arr.length,
+				cur,
+				remaining;
+
+			while (idx) {
+				remaining = ~~(Math.random() * idx--);
+
+				cur = arr[idx];
+				arr[idx] = arr[remaining];
+				arr[remaining] = cur;
+			}
+
+			return arr;
+		},
+
 		// Centralized now function.
 		// Prevents continuous testing across the
 		// application and caches a reference to Date.
