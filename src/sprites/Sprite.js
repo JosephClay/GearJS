@@ -59,8 +59,6 @@
 	_.extend(Sprite.prototype, Gear.Shape.prototype, {
 
 		draw: function(canvas) {
-			// if (this._isPaused) { return; }
-			
 			var animation = this._animation;
 			if (!animation) { return; }
 
@@ -68,6 +66,21 @@
 			if (!frame) { return; }
 
 			canvas.getContext().drawImage(frame.image, frame.x, frame.y, frame.width, frame.height, -frame.regX, -frame.regY, frame.width, frame.height);
+		},
+
+		hit: function(canvas) {
+			var animation = this._animation;
+			if (!animation) { return; }
+
+			var frame = animation.frames[this._index];
+			if (!frame) { return; }
+
+			var context = canvas.getContext();
+
+			context.beginPath();
+			context.rect(0, 0, frame.width, frame.height);
+			context.closePath();
+			canvas.fillAndStroke(this);
 		},
 
 		/**
@@ -181,7 +194,6 @@
 
 			this._index = idx;
 			this._animation = spriteAnimation;
-			this._normalizeFrame();
 		},
 
 		/**

@@ -747,10 +747,10 @@
 		},
 
 		_getAbsTrans: function() {
-			return this._absTrans || (this._absTrans = new Gear.Transform().reset());
+			return this._absTrans ? this._absTrans.reset() : (this._absTrans = new Gear.Transform());
 		},
 		_getTrans: function() {
-			return this._trans || (this._trans = new Gear.Transform().reset());
+			return this._trans ? this._trans.reset() : (this._trans = new Gear.Transform());
 		},
 
 		/**

@@ -1,7 +1,7 @@
 (function(Gear, Constants, Global, Util) {
 
-	var IN_DBL_CLICK_WINDOW = false,
-		DBL_CLICK_DELAY = 400,
+	var _isInDoubleClickWindow = false,
+		_doubleClickDelay = 400,
 		_events = [
 			Constants.EVT.MOUSEDOWN,
 			Constants.EVT.MOUSEMOVE,
@@ -222,16 +222,8 @@
 			this.content.style.height = _.toPx(height);
 
 			var dimensions = { width: width, height: height };
-			this.bufferCanvas.setSize(dimensions);
+			this.sceneCanvas.setSize(dimensions);
 			this.hitCanvas.setSize(dimensions);
-
-			// set pointer defined layer dimensions
-			for (; idx < length; idx += 1) {
-				layer = layers[idx];
-				layer.getCanvas().setSize(width, height);
-				layer.hitCanvas.setSize(width, height);
-				layer.compose();
-			}
 		},
 
 		// add layer to stage
@@ -361,16 +353,16 @@
 			if (Constants.LISTEN_TO_CLICK_OR_TAP && node._id === this.clickStartNode._id) {
 				node.triggerAndBubble(Constants.EVT.CLICK, evt);
 
-				if (IN_DBL_CLICK_WINDOW) {
+				if (_isInDoubleClickWindow) {
 					node.triggerAndBubble(Constants.EVT.DBL_CLICK, evt);
-					IN_DBL_CLICK_WINDOW = false;
+					_isInDoubleClickWindow = false;
 				} else {
-					IN_DBL_CLICK_WINDOW = true;
+					_isInDoubleClickWindow = true;
 				}
 
 				setTimeout(function() {
-					IN_DBL_CLICK_WINDOW = false;
-				}, DBL_CLICK_DELAY);
+					_isInDoubleClickWindow = false;
+				}, _doubleClickDelay);
 			}
 
 			Constants.LISTEN_TO_CLICK_OR_TAP = false;
@@ -405,16 +397,16 @@
 			if (Constants.LISTEN_TO_CLICK_OR_TAP && node._id === this.tapStartNode._id) {
 				node.triggerAndBubble(Constants.EVT.TAP, evt);
 
-				if (IN_DBL_CLICK_WINDOW) {
+				if (_isInDoubleClickWindow) {
 					node.triggerAndBubble(Constants.EVT.DBL_TAP, evt);
-					IN_DBL_CLICK_WINDOW = false;
+					_isInDoubleClickWindow = false;
 				} else {
-					IN_DBL_CLICK_WINDOW = true;
+					_isInDoubleClickWindow = true;
 				}
 
 				setTimeout(function() {
-					IN_DBL_CLICK_WINDOW = false;
-				}, DBL_CLICK_DELAY);
+					_isInDoubleClickWindow = false;
+				}, _doubleClickDelay);
 			}
 
 			Constants.LISTEN_TO_CLICK_OR_TAP = false;
@@ -480,7 +472,7 @@
 			});
 			container.appendChild(this.content);
 
-			this.bufferCanvas = new Gear.SceneCanvas();
+			this.sceneCanvas = new Gear.SceneCanvas();
 			this.hitCanvas = new Gear.HitCanvas();
 
 			this._resizeElem();

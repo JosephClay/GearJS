@@ -6,10 +6,7 @@
 
 	_.extend(HitCanvas.prototype, Gear.Canvas.prototype, {
 		_fill: function(shape) {
-			var context = this.getContext(),
-				fill = shape.getFill();
-
-			if (!fill || !fill.isEnabled()) { return; }
+			var context = this.getContext();
 
 			context.save();
 			context.fillStyle = shape.getColorId();

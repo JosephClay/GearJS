@@ -122,9 +122,7 @@
 				clip = this.getClip(),
 				hasClip = (clip.width && clip.height);
 
-			if (!canvas && layer) {
-				canvas = layer.getCanvas();
-			}
+			canvas = canvas || layer.getCanvas();
 
 			if (this.isVisible()) {
 				if (hasClip) {

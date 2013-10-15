@@ -1,3 +1,4 @@
+// TODO: Optimize
 (function(Gear) {
 
 	/**
@@ -54,48 +55,81 @@
 		},
 
 		_calculateFrames: function(animation, frames) {
+			// Frame creation
 			var arr = [],
 				idx = 0, length = frames.length,
 				col = !this._isVertial ? animation.width : 0,
 				row = this._isVertial ? animation.height : 0,
 				currentIdx = 0,
 				frame;
-			for (; idx < length; idx++) {
+			for (; idx < length; idx += 1) {
 				frame = frames[idx];
+
+				if (_.isNumber(frame)) {
+					frame = this._generateFrame({ idx: frame });
+				}
 
 				frame.image = this._image;
 				frame.width = _.isNumber(frame.width) ? frame.width : _.isNumber(animation.width) ? animation.width : this._frameWidth;
 				frame.height = _.isNumber(frame.height) ? frame.height : _.isNumber(animation.height) ? animation.height : this._frameHeight;
-				frame.x = _.isNumber(frame.x) ? (frame.x + (idx * col)) : (idx * col);
-				frame.y = _.isNumber(frame.y) ? (frame.y + (idx * row)) : (idx * row);
+				frame.x = _.isNumber(frame.x) ? (frame.x + (frame.idx * col)) : (frame.idx * col);
+				frame.y = _.isNumber(frame.y) ? (frame.y + (frame.idx * row)) : (frame.idx * row);
 				frame.regX = _.isNumber(frame.regX) ? frame.regX : animation.regX;
 				frame.regY = _.isNumber(frame.regY) ? frame.regY : animation.regY;
 				
-				if (idx < frame.idx) {
-					this._addDeltaFrames(animation, idx, frame.idx, frame, arr);
-				}
 				arr.push(frame);
+			}
+
+			// Delta Frames
+			idx = 0;
+			var startFrame, nextFrame;
+			for (; idx < length; idx += 2) {
+				startFrame = arr[idx];
+				nextFrame = arr[idx + 1];
+				if (!startFrame || !nextFrame) { continue; }
+
+				if (startFrame.idx + 1 !== nextFrame.idx) {
+					this._addDeltaFrames(animation, startFrame, nextFrame, arr);
+				}
 			}
 
 			return arr;
 		},
 
-		_addDeltaFrames: function(animation, idx, endingIdx, frame, arr) {
+		_addDeltaFrames: function(animation, startFrame, endFrame, arr) {
 			var col = !this._isVertial ? animation.width : 0,
-				row = this._isVertial ? animation.height : 0;
-			for (; idx < endingIdx; idx++) {
-				arr.push({
-					idx: idx,
-					image: frame.image,
-					width: frame.width,
-					height: frame.height,
-					x: (idx * col),
-					y: (idx * row),
-					regX: frame.regX,
-					regY: frame.regY
-				});
+				row = this._isVertial ? animation.height : 0,
+				idx = startFrame.idx + 1, endingIdx = endFrame.idx,
+				newFrame;
+			for (; idx < endingIdx; idx += 1) {
+				arr.push(
+					this._generateFrame({
+						idx: idx,
+						image: startFrame.image,
+						width: startFrame.width,
+						height: startFrame.height,
+						x: (idx * col),
+						y: (idx * row),
+						regX: startFrame.regX,
+						regY: startFrame.regY
+					})
+				);
 			}
 			return arr;
+		},
+
+		_generateFrame: function(config) {
+			var template = {
+					idx: null,
+					image: null,
+					width: null,
+					height: null,
+					x: null,
+					y: null,
+					regX: null,
+					regY: null
+				};
+			return _.extend(template, config);
 		},
 
 		toString: function() {
