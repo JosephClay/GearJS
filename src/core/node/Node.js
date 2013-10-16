@@ -190,36 +190,6 @@
 		},
 
 		/**
-		 * @return {Object}
-		 */
-		toJSON: function() {
-			var data = { attr: {} },
-				attr = this.attr;
-
-			// Serialize everything except for functions and DOM objects
-			var key, val;
-			for (key in attr) {
-				val = attr[key];
-				if (!_.isFunction(val) && !_.isElement(val)) {
-					
-					if (val && val.toJSON) {
-						data.attr[key] = val.toJSON();
-						continue;
-					}
-
-					data.attr[key] = val;
-				}
-			}
-
-			data._className = this._className;
-
-			return data;
-		},
-		toObject: function() {
-			return this.toJSON();
-		},
-
-		/**
 		 * Get parent
 		 */
 		getParent: function() {
@@ -281,21 +251,27 @@
 		 * @return {Transform} absoluteTransform
 		 */
 		getAbsoluteTransform: function() {
-			var absoluteTransform = this._getAbsTrans(),
-				nodeTransform;
+			var absoluteTransform = Gear.transform();
 
-			var transforms = [this.getTransform()],
+			var transforms = Gear.Arr(),
 				parent = this.getParent();
+
+			transforms.push(this.getTransform());
 
 			while (parent) {
 				transforms.push(parent.getTransform());
 				parent = parent.parent;
 			}
 
-			var idx = transforms.length - 1;
+			var idx = transforms.length - 1,
+				transform;
 			for (; idx >= 0; idx -= 1) {
-				absoluteTransform.multiply(transforms[idx]);
+				transform = transforms[idx];
+				absoluteTransform.multiply(transform);
+				transform.recycle();
 			}
+
+			transforms.recycle();
 
 			return absoluteTransform;
 		},
@@ -305,7 +281,7 @@
 		 * @return {Transform} matrix
 		 */
 		getTransform: function() {
-			var trans = this._getTrans(),
+			var transform = Gear.transform(),
 				x = this.getX(),
 				y = this.getY(),
 				rotation = this.getRotation(),
@@ -317,41 +293,24 @@
 				offsetY = this.getOffset().y;
 
 			if (x !== 0 || y !== 0) {
-				trans.translate(x, y);
+				transform.translate(x, y);
 			}
 
 			if (skewX !== 0 || skewY !== 0) {
-				trans.skew(skewX, skewY);
+				transform.skew(skewX, skewY);
 			}
 
 			if (scaleX !== 1 || scaleY !== 1) {
-				trans.scale(scaleX, scaleY);
+				transform.scale(scaleX, scaleY);
 			}
 
 			if (offsetX !== 0 || offsetY !== 0) {
-				trans.translate(offsetX * -1, offsetY * -1);
+				transform.translate(offsetX * -1, offsetY * -1);
 			}
 			
 			if (rotation !== 0) {
-				trans.rotate(Gear.Math.degToRad(rotation));
+				transform.rotate(Gear.Math.degToRad(rotation));
 			}
-
-			return trans;
-		},
-
-		clearTransform: function() {
-			var transform = this.getTransform(),
-				attr = this.attr;
-			
-			attr.x = 0;
-			attr.y = 0;
-			attr.rotation = 0;
-			attr.scale.x = 1;
-			attr.scale.y = 1;
-			attr.offset.x = 0;
-			attr.offset.y = 0;
-			attr.skew.x = 0;
-			attr.skew.y = 0;
 
 			return transform;
 		},
@@ -744,13 +703,6 @@
 			return this;
 		},
 
-		_getAbsTrans: function() {
-			return this._absTrans ? this._absTrans.reset() : (this._absTrans = new Gear.Transform());
-		},
-		_getTrans: function() {
-			return this._trans ? this._trans.reset() : (this._trans = new Gear.Transform());
-		},
-
 		/**
 		 * Determine if node is listening for events. The node is listening only
 		 * if it is listening and its parents are listening
@@ -797,7 +749,37 @@
 
 			return this;
 		},
-		
+
+		/**
+		 * @return {Object}
+		 */
+		toJSON: function() {
+			var data = { attr: {} },
+				attr = this.attr;
+
+			// Serialize everything except for functions and DOM objects
+			var key, val;
+			for (key in attr) {
+				val = attr[key];
+				if (!_.isFunction(val) && !_.isElement(val)) {
+					
+					if (val && val.toJSON) {
+						data.attr[key] = val.toJSON();
+						continue;
+					}
+
+					data.attr[key] = val;
+				}
+			}
+
+			data._className = this._className;
+
+			return data;
+		},
+		toObject: function() {
+			return this.toJSON();
+		},
+
 		/**
 		 * Destroy this node
 		 * @return {this}

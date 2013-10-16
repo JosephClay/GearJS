@@ -119,10 +119,13 @@
 		},
 
 		applyAncestorTransforms: function(node) {
-			var matrix = node.getAbsoluteTransform().getMatrix(),
+			var transform = node.getAbsoluteTransform(),
+				matrix = transform.getMatrix(),
 				context = this.getContext();
 
 			context.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
+
+			transform.recycle();
 		},
 
 		applyRotation: function(node) {
