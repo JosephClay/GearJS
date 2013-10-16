@@ -7,7 +7,13 @@
 	Transform.prototype = {
 
 		reset: function() {
-			this.m = [1, 0, 0, 1, 0, 0];
+			this.m[0] = 1;
+			this.m[1] = 0;
+			this.m[2] = 0;
+			this.m[3] = 1;
+			this.m[4] = 0;
+			this.m[5] = 0;
+
 			return this;
 		},
 
@@ -121,11 +127,29 @@
 			return this;
 		},
 
+		recycle: function() {
+			this.reset();
+			_transforms.push(this);
+		},
+
 		toString: function() {
 			return '[Transform]';
 		}
 	};
 
 	Gear.Transform = Transform;
+
+	var _transforms = [];
+	var _transformFactory = function() {
+		var trans;
+
+		if (_transforms.length) {
+			return _transforms.pop();
+		}
+
+		return new Transform();
+	};
+
+	Gear.transform = _transformFactory;
 
 }(Gear));

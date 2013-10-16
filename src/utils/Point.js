@@ -194,6 +194,10 @@
 			return this;
 		},
 
+		recycle: function() {
+			_points.push(this);
+		},
+
 		/**
 		 * Returns a string representation of this point.
 		 * @return {String}
@@ -203,8 +207,10 @@
 		}
 	};
 
+	Gear.Point = Point;
+
 	var _points = [];
-	var publicPoint = function(obj) {
+	var _pointFactory = function(obj) {
 		var point;
 
 		if (obj instanceof Point) {
@@ -218,9 +224,9 @@
 
 		return new Point(obj);
 	};
-	publicPoint.parse = _parse;
-	publicPoint.getPoints = _getPoints;
+	_pointFactory.parse = _parse;
+	_pointFactory.getPoints = _getPoints;
 
-	Gear.point = publicPoint;
+	Gear.point = _pointFactory;
 
 }(Gear));
