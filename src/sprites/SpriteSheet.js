@@ -132,6 +132,19 @@
 			return _.extend(template, config);
 		},
 
+		getSize: function() {
+			return {
+				width: this.getWidth(),
+				height: this.getHeight()
+			};
+		},
+		getWidth: function() {
+			return this._frameWidth;
+		},
+		getHeight: function() {
+			return this._frameHeight;
+		},
+
 		toString: function() {
 			return '[SpriteSheet]';
 		}

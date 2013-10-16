@@ -51,6 +51,8 @@
 			this.gotoAndStop(this.initial || config.initial);
 		}
 
+		this.setSize(this.spritesheet.getSize());
+
 		if (this.initialize) { this.initialize(); }
 	};
 
