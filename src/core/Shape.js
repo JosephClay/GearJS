@@ -39,7 +39,12 @@
 			canvas.applyAncestorTransforms(this);
 			canvas.applyRotation(this);
 
-			draw.call(this, canvas);
+			if (this._cache) {
+				canvas.getContext().drawImage(this._cache.getCanvas(), 0, 0);
+			} else {
+				draw.call(this, canvas);
+			}
+			
 			canvas.restore();
 			
 			return this;
@@ -132,6 +137,27 @@
 			return this;
 		},
 
+		/**
+		 * Cache | Uncahe
+		 */
+		_getCacheScene: function() {
+			return this._cacheScene || (this._cacheScene = new Gear.SceneCanvas());
+		},
+		cache: function() {
+			var scene = this._getCacheScene(),
+				draw = this.getDraw() || this.draw;
+			scene.setSize(this.getSize());
+			draw.call(this, scene);
+			this._cache = scene;
+		},
+		uncache: function() {
+			this._cache = null;
+		},
+
+		/**
+		 * Destroy
+		 * @return {[type]} [description]
+		 */
 		destroy: function() {
 			Gear.Node.prototype.destroy.call(this);
 			delete Global.shapes[this.getColorId()];
