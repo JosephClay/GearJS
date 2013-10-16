@@ -38,6 +38,9 @@
 		getElem: function() {
 			return this.elem;
 		},
+		getCanvas: function() {
+			return this.elem;
+		},
 
 		getContext: function() {
 			return this.context;
