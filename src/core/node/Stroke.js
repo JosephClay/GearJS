@@ -3,7 +3,7 @@
 	var Stroke = function(config) {
 		this._isEnabled = _.isBoolean(config.isEnabled) ? config.isEnabled : true;
 		this._width = _.isNumber(config.width) ? config.width : Stroke.defaults.width;
-		this._style = config.style || Stroke.defaults.style;
+		this._style = config.color || config.style || Stroke.defaults.style;
 		this._dashArray = config.dashArray;
 		this._scale = config.scale || _.extend({}, Stroke.defaults.scale);
 		this._lineCap = config.lineCap;
@@ -38,7 +38,7 @@
 				width = this._width,
 				style = this._style;
 
-			context.save();
+			canvas.save();
 
 			if (scale.x !== 1 || scale.y !== 1) {
 				context.setTransform(1, 0, 0, 1, 0, 0);
@@ -56,7 +56,7 @@
 			context.strokeStyle = style;
 			context.stroke();
 
-			context.restore();
+			canvas.restore();
 		},
 
 		isEnabled: function() {

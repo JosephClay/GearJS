@@ -19,8 +19,8 @@
 	var LinearGradient = function(config) {
 		Fill.call(this, config);
 
-		this._start = Gear.Point.parse(config.start);
-		this._end = Gear.Point.parse(config.end);
+		this._start = Gear.point.parse(config.start);
+		this._end = Gear.point.parse(config.end);
 		this._colorStops = this._buildColorStops(config.colorStops);
 	};
 
@@ -54,8 +54,8 @@
 			for (; idx < length; idx += 1) {
 				stop = stops[idx];
 				colorStops.push({
-					pos: +stop.pos,
-					color: Gear.Color.toRGB(stop.color)
+					pos: +stop.pos / 100,
+					color: stop.color === 'transparent' ? stop.color : Gear.Color.toHex(stop.color)
 				});
 			}
 

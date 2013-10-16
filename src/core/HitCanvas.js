@@ -8,15 +8,14 @@
 		_fill: function(shape) {
 			var context = this.getContext();
 
-			context.save();
+			this.save();
 			context.fillStyle = shape.getColorId();
 			context.fill();
-			context.restore();
+			this.restore();
 		},
 		
 		_stroke: function(shape) {
-			var context = this.getContext(),
-				stroke = shape.getStroke();
+			var stroke = shape.getStroke();
 
 			if (!stroke || !stroke.isEnabled()) { return; }
 

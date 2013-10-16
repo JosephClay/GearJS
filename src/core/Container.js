@@ -118,27 +118,32 @@
 		 * @return {this}
 		 */
 		drawScene: function(canvas) {
-			var layer = this.getLayer(),
-				clip = this.getClip(),
-				hasClip = (clip.width && clip.height);
+			var layer = this.getLayer();
 
 			if (!canvas && layer) {
 				canvas = layer.getCanvas();
 			}
 
 			if (this.isVisible()) {
-				if (hasClip) { canvas.clip(this); }
-				this._drawChildrenScene(canvas);
+				this._drawChildrenScene(canvas);				
 			}
 
 			return this;
 		},
 		_drawChildrenScene: function(canvas) {
-			var children = this.getChildren(),
+			var clip = this.getClip(),
+				hasClip = (clip.width && clip.height),
+				children = this.getChildren(),
 				idx = 0, length = children.length,
 				child;
 			for (; idx < length; idx += 1) {
+
+				if (hasClip) { canvas.save().clip(this); }
+				
 				children[idx].__draw(canvas);
+				
+				if (hasClip) { canvas.restore(); }
+
 			}
 		},
 

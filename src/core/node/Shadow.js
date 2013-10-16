@@ -6,6 +6,7 @@
 		this._blur = config.blur || Shadow.defaults.blur;
 		this._opacity = config.opacity || Shadow.defaults.opacity;
 		this._offset = config.offset || _.extend({}, Shadow.defaults.offset);
+		this._isInset = _.isBoolean(config.inset) ? config.inset : false;
 	};
 
 	Shadow.defaults = {
@@ -22,11 +23,10 @@
 			var context = canvas.getContext(),
 				opacity = this._opacity;
 
-			if (opacity) {
-				// context.globalAlpha = (opacity * shape.getAbsoluteOpacity());
-				context.globalAlpha = 1;
+			if (opacity > 0 && opacity < 1) {
+				context.globalAlpha = (opacity * shape.getAbsoluteOpacity());
 			}
-
+			
 			context.shadowColor = this._color;
 			context.shadowBlur = this._blur;
 			context.shadowOffsetX = this._offset.x;
@@ -41,6 +41,10 @@
 		},
 		disable: function() {
 			this._isEnabled = false;
+		},
+
+		isInset: function() {
+			return this._isInset;
 		},
 
 		/**

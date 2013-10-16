@@ -56,13 +56,7 @@
 				params = [image, 0, 0, width, height];
 			}
 
-			if (this.hasShadow()) {
-				canvas.applyShadow(this, function() {
-					context.drawImage.apply(context, params);
-				});
-			} else {
-				context.drawImage.apply(context, params);
-			}
+			context.drawImage.apply(context, params);
 		},
 
 		hit: function(canvas) {

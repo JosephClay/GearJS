@@ -57,10 +57,11 @@
 				textArr = this.textArr,
 				totalWidth = this.getWidth();
 
+			canvas.save();
+			
 			context.font = this._getContextFont();
 			context.textBaseline = 'middle';
 			context.textAlign = Constants.LEFT;
-			context.save();
 			context.translate(padding, 0);
 			context.translate(0, padding + textHeight / 2);
 
@@ -71,9 +72,6 @@
 					text = obj.text,
 					width = obj.width;
 
-				// horizontal alignment
-				context.save();
-
 				if (this.getAlign() === Constants.RIGHT) {
 					context.translate(totalWidth - width - padding * 2, 0);
 				} else if (this.getAlign() === Constants.CENTER) {
@@ -81,11 +79,10 @@
 				}
 
 				context.fillText(text, 0, 0);
-				context.restore();
 				context.translate(0, lineHeightPx);
 			}
 
-			context.restore();
+			canvas.restore();
 		},
 
 		hit: function(canvas) {

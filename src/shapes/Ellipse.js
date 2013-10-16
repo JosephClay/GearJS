@@ -17,16 +17,16 @@
 				// Already applied via transform
 				x = 0, y = 0;
 			
+			canvas.save();
 			context.beginPath();
-			context.save();
 			
 			if (radius.x !== radius.y) {
 				context.scale(1, radius.y / radius.x);
 			}
 			
 			context.arc(x, y, radius.x, 0, Gear.Math.PIx2, false);
-			context.restore();
 			context.closePath();
+			canvas.restore();
 			canvas.fillAndStroke(this);
 		},
 

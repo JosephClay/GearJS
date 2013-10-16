@@ -17,7 +17,7 @@
 
 			if (!fill || !fill.isEnabled()) { return; }
 
-			context.save();
+			this.save();
 
 			if (!skipShadow && shape.hasShadow()) {
 				this._applyShadow(shape);
@@ -25,9 +25,9 @@
 
 			fill.draw(this);
 
-			context.restore();
+			this.restore();
 
-			if (!skipShadow && shape.hasShadow()) {
+			if (!skipShadow && shape.hasShadow() && !shape.getShadow().isInset()) {
 				this._fill(shape, true);
 			}
 		},
@@ -38,7 +38,7 @@
 
 			if (!stroke) { return; }
 
-			context.save();
+			this.save();
 
 			if (!skipShadow && shape.hasShadow()) {
 				this._applyShadow(shape);
@@ -46,9 +46,9 @@
 
 			stroke.draw(this);
 
-			context.restore();
+			this.restore();
 
-			if (!skipShadow && shape.hasShadow()) {
+			if (!skipShadow && shape.hasShadow() && !shape.getShadow().isInset()) {
 				this._stroke(shape, true);
 			}
 		},

@@ -17,12 +17,13 @@
 		config = config || {};
 		Gear.Node.call(this, config);
 
+		this._contextType = config.contextType || Constants.CONTEXT_2D;
 		this._pixelRatio = config.pixelRatio || _pixelRatio;
-
+		this._saveCounter = 0;
 		this.elem = _.element(Constants.CANVAS, {
 			className: Constants.CANVAS_CLASS + ' ' + (config.className || '')
 		});
-		this.contextType = config.contextType;
+
 		this.setContext(this.elem);
 		this.setSize(config);
 	};
@@ -30,7 +31,8 @@
 	_.extend(Canvas.prototype, Gear.Node.prototype, {
 
 		reset: function() {
-			this.getContext().setTransform(this.getPixelRatio(), 0, 0, this.getPixelRatio(), 0, 0);
+			var pxRatio = this.getPixelRatio();
+			this.getContext().setTransform(pxRatio, 0, 0, pxRatio, 0, 0);
 		},
 
 		getElem: function() {
@@ -43,7 +45,23 @@
 
 		setContext: function(elem) {
 			elem = elem || this.elem;
-			this.context = elem.getContext(this.contextType || Constants.CONTEXT_2D);
+			this.context = elem.getContext(this._contextType);
+		},
+
+		save: function() {
+			this._saveCounter += 1;
+			if (this._saveCounter > 1) { return this; }
+			
+			this.getContext().save();
+			return this;
+		},
+
+		restore: function() {
+			this._saveCounter -= 1;
+			if (this._saveCounter !== 0) { return this; }
+
+			this.getContext().restore();
+			return this;
 		},
 
 		clear: function(clip) {
@@ -81,19 +99,6 @@
 		fillAndStroke: function(shape) {
 			this._fill(shape);
 			this._stroke(shape, shape.hasShadow() && shape.hasFill());
-		},
-
-		applyShadow: function(shape, draw) {
-			var context = this.getContext(),
-				shadow = shape.hasShadow();
-
-			if (!shadow) { return; }
-
-			context.save();
-			this._applyShadow(shape);
-			draw.call(shape, this);
-			context.restore();
-			draw.call(shape, this);
 		},
 
 		applyOpacity: function(shape) {
@@ -139,13 +144,11 @@
 			var context = this.getContext(),
 				clip = container.getClip();
 
-			context.save();
 			this.applyAncestorTransforms(container);
 			context.beginPath();
 			context.rect(clip.x, clip.y, clip.width, clip.height);
 			context.clip();
 			this.reset();
-			context.restore();
 		},
 	
 		/*

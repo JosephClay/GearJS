@@ -23,9 +23,9 @@
 	var RadialGradient = function(config) {
 		Fill.call(this, config);
 
-		this._start = Gear.Point.parse(config.start);
+		this._start = Gear.point.parse(config.start);
 		this._startRadius = config.startRadius || RadialGradient.defaults.startRadius;
-		this._end = Gear.Point.parse(config.end);
+		this._end = Gear.point.parse(config.end);
 		this._endRadius = config.endRadius || RadialGradient.defaults.endRadius;
 		this._colorStops = this._buildColorStops(config.colorStops);
 	};

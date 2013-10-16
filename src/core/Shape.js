@@ -33,14 +33,14 @@
 
 			var context = canvas.getContext();
 
-			context.save();
+			canvas.save();
 			canvas.applyOpacity(this);
 			canvas.applyLineJoin(this);
 			canvas.applyAncestorTransforms(this);
 			canvas.applyRotation(this);
 
 			draw.call(this, canvas);
-			context.restore();
+			canvas.restore();
 			
 			return this;
 		},
@@ -52,12 +52,12 @@
 			var canvas = this.getLayer().getHitCanvas(),
 				context = canvas.getContext();
 
-			context.save();
+			canvas.save();
 			canvas.applyLineJoin(this);
 			canvas.applyAncestorTransforms(this);
 			canvas.applyRotation(this);
 			draw.call(this, canvas);
-			context.restore();
+			canvas.restore();
 
 			return this;
 		},

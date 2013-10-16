@@ -284,19 +284,17 @@
 			var absoluteTransform = this._getAbsTrans(),
 				nodeTransform;
 
-			var family = [this],
+			var transforms = [this.getTransform()],
 				parent = this.getParent();
 
 			while (parent) {
-				family.unshift(parent);
+				transforms.push(parent.getTransform());
 				parent = parent.parent;
 			}
 
-			var idx = 0, length = family.length;
-			for (; idx < length; idx += 1) {
-				node = family[idx];
-				nodeTransform = node.getTransform();
-				absoluteTransform.multiply(nodeTransform);
+			var idx = transforms.length - 1;
+			for (; idx >= 0; idx -= 1) {
+				absoluteTransform.multiply(transforms[idx]);
 			}
 
 			return absoluteTransform;
@@ -394,14 +392,14 @@
 				}),
 				context = canvas.getContext();
 
-			context.save();
+			canvas.save();
 
 			if (x || y) {
 				context.translate(x * -1, y * -1);
 			}
 
 			this.__draw(canvas);
-			context.restore();
+			canvas.restore();
 
 			return canvas.toDataURL(mimeType, quality);
 		},
