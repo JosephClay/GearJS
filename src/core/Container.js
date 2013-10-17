@@ -134,8 +134,7 @@
 			var clip = this.getClip(),
 				hasClip = (clip.width && clip.height),
 				children = this.getChildren(),
-				idx = 0, length = children.length,
-				child;
+				idx = 0, length = children.length;
 			for (; idx < length; idx += 1) {
 
 				if (hasClip) { canvas.save().clip(this); }
@@ -151,31 +150,32 @@
 		 * Draw the children into the hit
 		 * @return {[type]} [description]
 		 */
-		drawHit: function() {
-			var hitCanvas;
+		drawHit: function(hitCanvas) {
 			if (!this.shouldDrawHit()) { return this; }
-			
-			var clip = this.getClip(),
-				hasClip = (clip.width && clip.height && this.nodeType !== Constants.NODE_TYPE.STAGE);
 
-			if (hasClip) {
-				hitCanvas = this.getLayer().getHitCanvas();
-				hitCanvas.clip(this);
+			var layer = this.getLayer();
+
+			if (!hitCanvas && layer) {
+				hitCanvas = layer.getHitCanvas();
 			}
 
-			this._drawChildrenHit();
-
-			if (hasClip) {
-				hitCanvas.getContext().restore();
-			}
+			this._drawChildrenHit(hitCanvas);
 
 			return this;
 		},
-		_drawChildrenHit: function() {
-			var children = this.getChildren(),
+		_drawChildrenHit: function(hitCanvas) {
+			var clip = this.getClip(),
+				hasClip = (clip.width && clip.height),
+				children = this.getChildren(),
 				idx = 0, length = children.length;
 			for (; idx < length; idx += 1) {
+
+				if (hasClip) { hitCanvas.save().clip(this); }
+				
 				children[idx].__hit();
+
+				if (hasClip) { hitCanvas.restore(); }
+
 			}
 		},
 

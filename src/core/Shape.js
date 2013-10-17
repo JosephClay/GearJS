@@ -51,7 +51,7 @@
 		},
 
 		drawHit: function() {
-			var draw = this.getDraw() || this.draw;
+			var draw = this.getHit() || this.hit || this.getDraw() || this.draw;
 			if (!draw || !this.shouldDrawHit()) { return this; }
 
 			var canvas = this.getLayer().getHitCanvas(),
