@@ -18,7 +18,7 @@
 		this._className = Constants.CLASS.WEDGE;
 	};
 
-	_.extend(Wedge.prototype, Gear.Shape.prototype, {
+	Util.construct(Wedge.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),
 				radius = this.getRadius(),

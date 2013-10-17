@@ -1,4 +1,4 @@
-(function(Gear, Constants) {
+(function(Gear, Constants, Util) {
 	
 	/**
 	 * Used to contain shapes or other groups.
@@ -9,7 +9,7 @@
 		this.nodeType = Constants.NODE_TYPE.GROUP;
 	};
 
-	_.extend(Group.prototype, Gear.Container.prototype, {
+	Util.construct(Group.prototype, Gear.Container.prototype, {
 		_validateAdd: function(child) {
 			var type = child.getType();
 			if (type === Constants.NODE_TYPE.STAGE || type === Constants.NODE_TYPE.LAYER) {
@@ -24,4 +24,4 @@
 
 	Gear.Group = Group;
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Constants, Gear.Util));

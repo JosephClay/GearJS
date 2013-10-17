@@ -40,7 +40,7 @@
 		return attr;
 	};
 
-	_.extend(Node.prototype, Gear.Signal.prototype, {
+	Util.construct(Node.prototype, Gear.Signal.prototype, {
 		
 		// At this point, we should know exactly how to draw this to the canvas.
 		// - Give intercepting drawScene/drawHit functions priority, they're calling __draw on children

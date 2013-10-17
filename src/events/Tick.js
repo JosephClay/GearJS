@@ -1,4 +1,4 @@
-(function(Gear, Global) {
+(function(Gear, Global, Util) {
 
 	// Request Animation Frame: intentionally encapsulated so that
 	// we have a quick reference and don't pollute other implementations on the page
@@ -78,7 +78,7 @@
 	 */
 	Tick._VARIANCE = 0.97;
 
-	_.extend(Tick.prototype, Gear.Signal.prototype, {
+	Util.construct(Tick.prototype, Gear.Signal.prototype, {
 		
 		/**
 		 * Sets the target frames per second
@@ -210,4 +210,4 @@
 	
 	Gear.Tick = new Tick();
 
-}(Gear, Gear.Global));
+}(Gear, Gear.Global, Gear.Util));

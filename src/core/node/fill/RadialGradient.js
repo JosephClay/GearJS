@@ -1,4 +1,4 @@
-(function(Gear, Fill) {
+(function(Gear, Util, Fill) {
 	
 	/**
 	 * Radial Gradient
@@ -35,7 +35,7 @@
 		endRadius: 0
 	};
 
-	_.extend(RadialGradient.prototype, Fill.prototype, {
+	Util.construct(RadialGradient.prototype, Fill.prototype, {
 		draw: function(canvase) {
 			if (!this.isEnabled()) { return; }
 
@@ -90,4 +90,4 @@
 
 	Fill.RadialGradient = RadialGradient;
 
-}(Gear, Gear.Fill));
+}(Gear, Gear.Util, Gear.Fill));

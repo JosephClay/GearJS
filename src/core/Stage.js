@@ -39,7 +39,7 @@
 		Global.stages.push(this);
 	};
 
-	_.extend(Stage.prototype, Gear.Container.prototype, {
+	Util.construct(Stage.prototype, Gear.Container.prototype, {
 		_validateAdd: function(child) {
 			if (child.getType() !== Constants.NODE_TYPE.LAYER) {
 				throw new Error('Only layers may be added to the stage.');

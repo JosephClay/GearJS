@@ -1,4 +1,4 @@
-(function(Gear, Fill) {
+(function(Gear, Util, Fill) {
 	
 	/**
 	 * Linear Gradient
@@ -24,7 +24,7 @@
 		this._colorStops = this._buildColorStops(config.colorStops);
 	};
 
-	_.extend(LinearGradient.prototype, Fill.prototype, {
+	Util.construct(LinearGradient.prototype, Fill.prototype, {
 		draw: function(canvas) {
 			if (!this.isEnabled()) { return; }
 
@@ -77,4 +77,4 @@
 
 	Fill.LinearGradient = LinearGradient;
 
-}(Gear, Gear.Fill));
+}(Gear, Gear.Util, Gear.Fill));

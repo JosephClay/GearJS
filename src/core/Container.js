@@ -9,7 +9,7 @@
 		Gear.Node.call(this, config);
 	};
 
-	_.extend(Container.prototype, Gear.Node.prototype, {
+	Util.construct(Container.prototype, Gear.Node.prototype, {
 
 		/**
 		 * Add a child (or an array of children) to the container

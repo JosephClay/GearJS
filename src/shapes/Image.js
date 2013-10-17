@@ -25,7 +25,7 @@
 		this.filterCanvas = null;
 	};
 
-	_.extend(Image.prototype, Gear.Shape.prototype, {
+	Util.construct(Image.prototype, Gear.Shape.prototype, {
 		
 		draw: function(canvas) {
 			var context = canvas.getContext(),

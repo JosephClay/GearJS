@@ -44,7 +44,7 @@
 		console.log('this.textArr: ', this.textArr);
 	};
 
-	_.extend(Txt.prototype, Gear.Shape.prototype, {
+	Util.construct(Txt.prototype, Gear.Shape.prototype, {
 
 		draw: function(canvas) {
 			var context = canvas.getContext(),

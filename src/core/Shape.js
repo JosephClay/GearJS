@@ -12,7 +12,7 @@
 		Global.shapes[this._colorKey] = this;
 	};
 
-	_.extend(Shape.prototype, Gear.Node.prototype, {
+	Util.construct(Shape.prototype, Gear.Node.prototype, {
 
 		/**
 		 * Get the unique color id for this shape

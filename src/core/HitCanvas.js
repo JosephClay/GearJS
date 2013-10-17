@@ -1,10 +1,10 @@
-(function(Gear) {
+(function(Gear, Util) {
 
 	var HitCanvas = function(config) {
 		Gear.Canvas.call(this, config);
 	};
 
-	_.extend(HitCanvas.prototype, Gear.Canvas.prototype, {
+	Util.construct(HitCanvas.prototype, Gear.Canvas.prototype, {
 		_fill: function(shape) {
 			var context = this.getContext();
 
@@ -34,4 +34,4 @@
 	
 	Gear.HitCanvas = HitCanvas;
 
-}(Gear));
+}(Gear, Gear.Util));

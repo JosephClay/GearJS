@@ -1,4 +1,4 @@
-(function(Gear, Constants) {
+(function(Gear, Constants, Util) {
 
 	/**
 	 * A rectangle
@@ -15,7 +15,7 @@
 		this._className = Constants.CLASS.RECT;
 	};
 
-	_.extend(Rect.prototype, Gear.Shape.prototype, {
+	Util.construct(Rect.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),
 				cornerRadius = this.getCornerRadius(),
@@ -64,4 +64,4 @@
 
 	Gear.Rect = Rect;
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Constants, Gear.Util));

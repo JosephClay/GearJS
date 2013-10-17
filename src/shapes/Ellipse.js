@@ -1,4 +1,4 @@
-(function(Gear, Constants) {
+(function(Gear, Constants, Util) {
 
 	/**
 	 * An ellipse
@@ -10,7 +10,7 @@
 		this._className = Constants.CLASS.ELLIPSE;
 	};
 
-	_.extend(Ellipse.prototype, Gear.Shape.prototype, {
+	Util.construct(Ellipse.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),
 				radius = this.getRadius(),
@@ -70,4 +70,4 @@
 
 	Gear.Ellipse = Ellipse;
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Constants, Gear.Util));

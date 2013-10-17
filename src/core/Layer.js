@@ -14,7 +14,7 @@
 		this.nodeType = Constants.NODE_TYPE.LAYER;
 	};
 
-	_.extend(Layer.prototype, Gear.Container.prototype, {
+	Util.construct(Layer.prototype, Gear.Container.prototype, {
 		
 		auto: function() {
 			var compose = this.compose.bind(this);

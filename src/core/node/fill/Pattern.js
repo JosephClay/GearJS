@@ -1,4 +1,4 @@
-(function(Gear, Fill) {
+(function(Gear, Util, Fill) {
 	
 	/**
 	 * Pattern
@@ -44,7 +44,7 @@
 		repeat: Pattern.REPEAT.repeat
 	};
 
-	_.extend(Pattern.prototype, Fill.prototype, {
+	Util.construct(Pattern.prototype, Fill.prototype, {
 		draw: function(canvas) {
 			if (!this.isEnabled()) { return; }
 
@@ -93,4 +93,4 @@
 
 	Fill.Pattern = Pattern;
 
-}(Gear, Gear.Fill));
+}(Gear, Gear.Util, Gear.Fill));

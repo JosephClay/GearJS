@@ -1,4 +1,4 @@
-(function(Gear) {
+(function(Gear, Util) {
 		
 	/**
 	 * Displays frames or sequences of frames (ie. animations) from a sprite sheet image. A sprite sheet is a series of
@@ -54,7 +54,7 @@
 		this.setSize(this.spritesheet.getSize());
 	};
 
-	_.extend(Sprite.prototype, Gear.Shape.prototype, {
+	Util.construct(Sprite.prototype, Gear.Shape.prototype, {
 
 		draw: function(canvas) {
 			var animation = this._animation;
@@ -221,4 +221,4 @@
 
 	Gear.Sprite = Sprite;
 
-}(Gear));
+}(Gear, Gear.Util));

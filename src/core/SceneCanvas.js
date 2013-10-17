@@ -4,7 +4,7 @@
 		Gear.Canvas.call(this, config);
 	};
 
-	_.extend(SceneCanvas.prototype, Gear.Canvas.prototype, {
+	Util.construct(SceneCanvas.prototype, Gear.Canvas.prototype, {
 
 		/**
 		 * Fill a shape with a color or a fill object

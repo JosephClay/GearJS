@@ -1,5 +1,5 @@
 // TODO: Optimize
-(function(Gear) {
+(function(Gear, Util) {
 
 	/**
 	 * Encapsulates the properties and methods associated with a spritesheet.
@@ -25,7 +25,7 @@
 		this._calculateAnimations(config);
 	};
 
-	_.extend(SpriteSheet.prototype, Gear.Signal.prototype, {
+	Util.construct(SpriteSheet.prototype, Gear.Signal.prototype, {
 
 		getAnimation: function(animation) {
 			return this._animations[animation];
@@ -152,4 +152,4 @@
 
 	Gear.SpriteSheet = SpriteSheet;
 
-}(Gear));
+}(Gear, Gear.Util));

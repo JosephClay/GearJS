@@ -1,4 +1,4 @@
-(function(Gear, Fill) {
+(function(Gear, Util, Fill) {
 	
 	/**
 	 * Color fill
@@ -12,7 +12,7 @@
 		this._color = color;
 	};
 
-	_.extend(Color.prototype, Fill.prototype, {
+	Util.construct(Color.prototype, Fill.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext();
 			context.fillStyle = this._color;
@@ -30,4 +30,4 @@
 
 	Fill.Color = Color;
 
-}(Gear, Gear.Fill));
+}(Gear, Gear.Util, Gear.Fill));

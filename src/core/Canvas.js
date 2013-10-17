@@ -1,4 +1,4 @@
-(function(Gear, Global, Constants) {
+(function(Gear, Global, Constants, Util) {
 
 	var _pixelRatio = (function() {
 		var canvas = _.element(Constants.CANVAS),
@@ -28,7 +28,7 @@
 		this.setSize(config);
 	};
 
-	_.extend(Canvas.prototype, Gear.Node.prototype, {
+	Util.construct(Canvas.prototype, Gear.Node.prototype, {
 
 		reset: function() {
 			var pxRatio = this.getPixelRatio();
@@ -201,4 +201,4 @@
 
 	Gear.Canvas = Canvas;
 
-}(Gear, Gear.Global, Gear.Constants));
+}(Gear, Gear.Global, Gear.Constants, Gear.Util));

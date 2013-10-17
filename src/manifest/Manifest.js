@@ -1,4 +1,4 @@
-(function(Gear) {
+(function(Gear, Util) {
 
 	var Manifest = function(name, manifest) {
 		this.name = name || Gear.id('manifest'); // create a name for the manifest for Resource storage
@@ -21,7 +21,7 @@
 		this.on('complete', function() { Gear.Resource.load(self); });
 	};
 
-	_.extend(Manifest.prototype, Gear.Signal.prototype, {	
+	Util.construct(Manifest.prototype, Gear.Signal.prototype, {	
 		// The number of maximum open connections that a loadQueue tries to maintain.
 		_maxConnections: 3,
 
@@ -131,4 +131,4 @@
 
 	Gear.Manifest = Manifest;
 
-}(Gear));
+}(Gear, Gear.Util));

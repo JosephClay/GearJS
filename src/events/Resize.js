@@ -2,7 +2,7 @@
  * A global window resize function and location to get
  * window measurements to reduce bindings and DOM calls.
  */
-(function(Gear, Global) {
+(function(Gear, Global, Util) {
 	
 	var Resize = function() {
 		Gear.Signal.call(this);
@@ -10,7 +10,7 @@
 		this._bind();
 	};
 
-	_.extend(Resize.prototype, Gear.Signal.prototype, {
+	Util.construct(Resize.prototype, Gear.Signal.prototype, {
 		throttle: 100, // ms
 
 		getDimensions: function() {
@@ -71,4 +71,4 @@
 
 	Gear.Resize = new Resize();
 
-}(Gear, Gear.Global));
+}(Gear, Gear.Global, Gear.Util));

@@ -1,4 +1,4 @@
-(function(Gear, Constants) {
+(function(Gear, Constants, Util) {
 
 	/**
 	 * Polygons are primitives defined by an array of points
@@ -22,7 +22,7 @@
 		this._className = Constants.CLASS.POLYGON;
 	};
 
-	_.extend(Polygon.prototype, Gear.Shape.prototype, {
+	Util.construct(Polygon.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),
 				points = this.getPoints(),
@@ -62,4 +62,4 @@
 
 	Gear.Polygon = Polygon;
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Constants, Gear.Util));

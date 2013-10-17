@@ -1,4 +1,4 @@
-(function(Gear, Constants) {
+(function(Gear, Constants, Util) {
 
 	/**
 	 * Lines are straight segments defined by an array of points
@@ -21,7 +21,7 @@
 		this._className = Constants.CLASS.LINE;
 	};
 
-	_.extend(Line.prototype, Gear.Shape.prototype, {
+	Util.construct(Line.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var points = this.getPoints(),
 				firstPoint = points[0],
@@ -63,4 +63,4 @@
 	
 	Gear.Line = Line;
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Constants, Gear.Util));

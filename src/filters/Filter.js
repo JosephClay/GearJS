@@ -1,8 +1,8 @@
-(function(Gear) {
+(function(Gear, Util) {
 
 	Gear.Filters = {}; // Filters namespace
 
-	_.extend(Image.prototype, {
+	Util.construct(Image.prototype, {
 		// Filter support: Blur
 		getFilterRadius: function() {
 			var val = this.attr.filterRadius;
@@ -64,4 +64,4 @@
 		}
 	});
 
-}(Gear));
+}(Gear, Gear.Util));

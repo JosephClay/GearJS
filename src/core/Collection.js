@@ -1,4 +1,4 @@
-(function(Gear) {
+(function(Gear, Util) {
 
 	var Collection = function() {
 		var arr = _.slice(arguments);
@@ -23,7 +23,8 @@
 	};
 
 	Collection.prototype = [];
-	_.extend(Collection.prototype, {
+
+	Util.construct(Collection.prototype, {
 		
 		/**
 		 * Iterate through node array and run a function for each node.
@@ -92,4 +93,4 @@
 
 	Gear.Collection = Collection;
 
-}(Gear));
+}(Gear, Gear.Util));

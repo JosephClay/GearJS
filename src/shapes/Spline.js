@@ -25,7 +25,7 @@
 		this._setAllPoints();
 	};
 
-	_.extend(Spline.prototype, Gear.Shape.prototype, {
+	Util.construct(Spline.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var allPoints = this.allPoints,
 				allPointsLength = allPoints.length,

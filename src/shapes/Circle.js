@@ -1,4 +1,4 @@
-(function(Gear, Constants) {
+(function(Gear, Constants, Util) {
 
 	/**
 	 * A circle
@@ -14,7 +14,7 @@
 		this._className = Constants.CLASS.CIRCLE;
 	};
 
-	_.extend(Circle.prototype, Gear.Shape.prototype, {
+	Util.construct(Circle.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),
 				// Already applied via transform
@@ -71,4 +71,4 @@
 
 	Gear.Circle = Circle;
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Constants, Gear.Util));
