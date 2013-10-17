@@ -82,6 +82,10 @@
 			return (+param) + 'px';
 		},
 		
+		/**
+		 * Quick and dirty way to duplicate data
+		 * using the JSON parser
+		 */
 		duplicate: function(obj) {
 			return JSON.parse(JSON.stringify(obj));
 		}
