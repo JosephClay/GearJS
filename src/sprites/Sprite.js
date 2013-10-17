@@ -52,11 +52,7 @@
 		}
 
 		this.setSize(this.spritesheet.getSize());
-
-		if (this.initialize) { this.initialize(); }
 	};
-
-	Sprite.extend = Gear.Util.extend;
 
 	_.extend(Sprite.prototype, Gear.Shape.prototype, {
 

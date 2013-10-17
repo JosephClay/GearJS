@@ -13,11 +13,7 @@
 	var Rect = function(config) {
 		Gear.Shape.call(this, config);
 		this._className = Constants.CLASS.RECT;
-
-		if (this.initialize) { this.initialize(); }
 	};
-
-	Rect.extend = Gear.Util.extend;
 
 	_.extend(Rect.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
