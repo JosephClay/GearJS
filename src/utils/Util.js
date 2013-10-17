@@ -83,7 +83,6 @@
 		 * Faster extend for merging two prototypes.
 		 * Should speed up Gear initialization
 		 */
-		// TODO: Implement
 		construct: function() {
 			var args = arguments,
 				base = args[0],

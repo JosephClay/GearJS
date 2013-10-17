@@ -1,4 +1,3 @@
-// TODO: Optimize
 (function(Gear, Util) {
 
 	/**

@@ -1,6 +1,6 @@
 (function(Gear, Constants, Global, Util) {
 
-	var _isInDoubleClickWindow = false,
+	var _isInDoubleClickTimeWindow = false,
 		_doubleClickDelay = 400,
 		_events = [
 			Constants.EVT.MOUSEDOWN,
@@ -353,15 +353,15 @@
 			if (Constants.LISTEN_TO_CLICK_OR_TAP && node._id === this.clickStartNode._id) {
 				node.triggerAndBubble(Constants.EVT.CLICK, evt);
 
-				if (_isInDoubleClickWindow) {
+				if (_isInDoubleClickTimeWindow) {
 					node.triggerAndBubble(Constants.EVT.DBL_CLICK, evt);
-					_isInDoubleClickWindow = false;
+					_isInDoubleClickTimeWindow = false;
 				} else {
-					_isInDoubleClickWindow = true;
+					_isInDoubleClickTimeWindow = true;
 				}
 
 				setTimeout(function() {
-					_isInDoubleClickWindow = false;
+					_isInDoubleClickTimeWindow = false;
 				}, _doubleClickDelay);
 			}
 
@@ -397,15 +397,15 @@
 			if (Constants.LISTEN_TO_CLICK_OR_TAP && node._id === this.tapStartNode._id) {
 				node.triggerAndBubble(Constants.EVT.TAP, evt);
 
-				if (_isInDoubleClickWindow) {
+				if (_isInDoubleClickTimeWindow) {
 					node.triggerAndBubble(Constants.EVT.DBL_TAP, evt);
-					_isInDoubleClickWindow = false;
+					_isInDoubleClickTimeWindow = false;
 				} else {
-					_isInDoubleClickWindow = true;
+					_isInDoubleClickTimeWindow = true;
 				}
 
 				setTimeout(function() {
-					_isInDoubleClickWindow = false;
+					_isInDoubleClickTimeWindow = false;
 				}, _doubleClickDelay);
 			}
 

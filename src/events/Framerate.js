@@ -23,7 +23,6 @@
 
 	Framerate.prototype = {
 
-		// TODO: Optimize
 		on: function(name, callback) {
 			if (!callback) { return; }
 

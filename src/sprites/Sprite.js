@@ -212,8 +212,6 @@
 			return this;
 		},
 
-		// TODO: Clone
-
 		toString: function() {
 			return '[Sprite]';
 		}
