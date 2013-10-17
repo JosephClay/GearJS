@@ -41,7 +41,6 @@
 		}
 
 		this._setTxtData();
-		console.log('this.textArr: ', this.textArr);
 	};
 
 	Util.construct(Txt.prototype, Gear.Shape.prototype, {
