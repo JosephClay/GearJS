@@ -4,13 +4,13 @@
  */
 (function(Gear, Global, Util) {
 	
-	var Resize = function() {
+	var WindowResize = function() {
 		Gear.Signal.call(this);
 		this.dimensions = this._measure();
 		this._bind();
 	};
 
-	Util.construct(Resize.prototype, Gear.Signal.prototype, {
+	Util.construct(WindowResize.prototype, Gear.Signal.prototype, {
 		throttle: 100, // ms
 
 		getDimensions: function() {
@@ -69,6 +69,6 @@
 		}
 	});
 
-	Gear.Resize = new Resize();
+	Gear.WindowResize = new WindowResize();
 
 }(Gear, Gear.Global, Gear.Util));
