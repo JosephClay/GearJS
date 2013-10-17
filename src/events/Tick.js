@@ -67,6 +67,7 @@
 		this._timeoutId = null;
 
 		this.setFPS(60);
+		this._raf = this._raf.bind(this); // Setup the requestAnimationFrame reciever's context
 		this._request(); // Start er up!
 	};
 
@@ -153,15 +154,7 @@
 		},
 		
 		_request: function() {
-			var self = this;
-			this._timeoutId = _requestAnimationFrame(function() {
-				if (self._isTickAllowed()) {
-					self._tick();
-				}
-
-				self._request();
-			});
-
+			this._timeoutId = _requestAnimationFrame(this._raf);
 			return this;
 		},
 
@@ -172,19 +165,25 @@
 			return this;
 		},
 
-		_isTickAllowed: function() {
+
+		_raf: function() {
 			// Only run if enough time has elapsed, with a little bit of flexibility to
 			// be early, because RAF seems to run a little faster than 60hz
-			return (_.now() - this._lastTime >= (this._interval - 1) * Tick._VARIANCE);
+			var now = _.now();
+			if (now - this._lastTime >= (this._interval - 1) * Tick._VARIANCE) {
+				this._tick(now);
+			}
+
+			this._request();
 		},
 		
-		_tick: function() {
+		_tick: function(now) {
 			this.dispatch('tick:start');
 
 			this._ticks += 1;
 
 			var e = this.eventObj,
-				time = _.now(),
+				time = now,
 				elapsedTime = (time - this._lastTime),
 				paused = this._isPaused;
 			
