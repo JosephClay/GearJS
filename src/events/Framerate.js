@@ -17,48 +17,55 @@
 		 */
 		this.then = null;
 		this.tickId = null;
+		this._tick = this._tick.bind(this);
 		this.setFPS(fps);
 	};
 
 	Framerate.prototype = {
 
-	    on: function(name, callback) {
+		// TODO: Optimize
+		on: function(name, callback) {
+			if (!callback) { return; }
+
 			this.then = _.now();
+			this.callback = callback;
 
-			this.tickId = Gear.Tick.subscribe('tick', function(e) {
+			this.tickId = Gear.Tick.subscribe('tick', this._tick);
+		},
 
-				var delta = e.now - this.then;
-				if (delta > this.interval) {
-			        // update time stuffs
-			         
-			        // Just `then = now` is not enough.
-			        // Lets say we set fps at 10 which means
-			        // each frame must take 100ms
-			        // Now frame executes in 16ms (60fps) so
-			        // the loop iterates 7 times (16*7 = 112ms) until
-			        // delta > interval === true
-			        // Eventually this lowers down the FPS as
-			        // 112*10 = 1120ms (NOT 1000ms).
-			        // So we have to get rid of that extra 12ms
-			        // by subtracting delta (112) % interval (100).
-			        // Hope that makes sense.
-			         
-			        this.then = e.now - (delta % this.interval);
-
-			        callback.call();
-		        }
-			}.bind(this));
-	    },
-
-	    off: function(name) {
+		off: function(name) {
 			if (!this.tickId) { return; }
 			Gear.Tick.unsubscribe(this.tickId);
 			this.tickId = null;
-	    },
+			this.callback = null;
+		},
 
-	    setFPS: function(fps) {
+		_tick: function(e) {
+			var delta = e.now - this.then;
+			if (delta > this.interval) {
+				// update time stuffs
+				 
+				// Just `then = now` is not enough.
+				// Lets say we set fps at 10 which means
+				// each frame must take 100ms
+				// Now frame executes in 16ms (60fps) so
+				// the loop iterates 7 times (16*7 = 112ms) until
+				// delta > interval === true
+				// Eventually this lowers down the FPS as
+				// 112*10 = 1120ms (NOT 1000ms).
+				// So we have to get rid of that extra 12ms
+				// by subtracting delta (112) % interval (100).
+				// Hope that makes sense.
+				 
+				this.then = e.now - (delta % this.interval);
+
+				this.callback.call();
+			}
+		},
+
+		setFPS: function(fps) {
 			this.interval = (1000 / fps);
-	    }
+		}
 	};
 
 	Gear.Framerate = Framerate;
