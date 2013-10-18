@@ -43,7 +43,10 @@
 
 		// faster Math.round using bitmath
 		// http://stackoverflow.com/questions/8483357/why-is-math-round-in-javascript-slower-than-a-custom-built-function
+		// Only slightly faster than ~~0.5.
+		// This abstraction allows for negative numbers
 		round: function(num) {
+			if (num < 0) { return Math.round(num); }
 			var x = num % 1;
 			return num - x + (x / 1 + 1.5 >> 1) * 1;
 		},
