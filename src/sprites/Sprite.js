@@ -205,7 +205,7 @@
 		 * @return {Number} FPS
 		 */
 		getFPS: function() {
-			return this.attr.framerate || (this.spriteSheet) ? this.spriteSheet.framerate : Gear.Tick.getFPS();
+			return this.attr.framerate || (this.spritesheet) ? this.spritesheet.framerate : Gear.Tick.getFPS();
 		},
 
 		setFPS: function(fps) {
