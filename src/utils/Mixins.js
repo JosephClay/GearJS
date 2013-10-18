@@ -44,8 +44,8 @@
 		// faster Math.round using bitmath
 		// http://stackoverflow.com/questions/8483357/why-is-math-round-in-javascript-slower-than-a-custom-built-function
 		round: function(num) {
-			var x = num % 1;
-			return num - x + (x / 1 + 1.5 >> 1) * 1;
+			var remainder = num % 1;
+			return num - remainder + ((((remainder / 1) + 1.5) >> 1) * 1);
 		},
 
 		// Check if an elem is in the document
