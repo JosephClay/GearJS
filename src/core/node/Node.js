@@ -514,7 +514,7 @@
 
 		getListening: function() {
 			var val = this.attr.listening;
-			return (!_.exists(val)) ? false : val;
+			return (!_.exists(val)) ? true : val;
 		},
 		setListening: function(isListening) {
 			this.attr.listening = !!isListening;
