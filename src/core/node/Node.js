@@ -408,6 +408,20 @@
 		},
 
 		/**
+		 * General get and set
+		 * Be very careful with these
+		 * as it allows you to bypass normal getters
+		 * and setters
+		 */
+		get: function(key) {
+			return this.attr.key;
+		},
+		set: function(key, val) {
+			this.attr[key] = val;
+			return this;
+		},
+
+		/**
 		 * Whether the HitCanvas for this node should be drawn.
 		 * Will be true if the node is visible and someone is listening
 		 * @return {Boolean}
