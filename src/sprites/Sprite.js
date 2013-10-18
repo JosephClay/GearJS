@@ -54,6 +54,8 @@
 		this.setSize(this.spritesheet.getSize());
 	};
 
+	Sprite.extend = Util.extend;
+
 	Util.construct(Sprite.prototype, Gear.Shape.prototype, {
 
 		draw: function(canvas) {
