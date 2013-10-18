@@ -11,6 +11,8 @@
 		}
 		return this;
 	};
+
+	Collection.extend = Util.extend;
 	
 	Collection.toCollection = function(arr) {
 		var collection = new Collection(),

@@ -18,6 +18,7 @@
 		this.determineComposition();
 	};
 
+	Node.extend = Util.extend;
 
 	Node.parse = function(attr) {
 		attr = attr || {};

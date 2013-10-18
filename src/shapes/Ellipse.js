@@ -10,6 +10,8 @@
 		this._className = Constants.CLASS.ELLIPSE;
 	};
 
+	Ellipse.extend = Util.extend;
+
 	Util.construct(Ellipse.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),

@@ -9,6 +9,8 @@
 		this.nodeType = Constants.NODE_TYPE.GROUP;
 	};
 
+	Group.extend = Util.extend;
+
 	Util.construct(Group.prototype, Gear.Container.prototype, {
 		_validateAdd: function(child) {
 			var type = child.getType();

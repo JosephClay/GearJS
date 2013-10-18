@@ -21,6 +21,8 @@
 		this._className = Constants.CLASS.LINE;
 	};
 
+	Line.extend = Util.extend;
+
 	Util.construct(Line.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var points = this.getPoints(),

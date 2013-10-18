@@ -14,6 +14,8 @@
 		this.nodeType = Constants.NODE_TYPE.LAYER;
 	};
 
+	Layer.extend = Util.extend;
+
 	Util.construct(Layer.prototype, Gear.Container.prototype, {
 		
 		auto: function() {

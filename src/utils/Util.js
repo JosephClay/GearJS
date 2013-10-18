@@ -1,6 +1,36 @@
 (function(Gear, Constants, Global) {
 
 	var Util = {
+		extend: function(constructor, extension) {
+			var hasConstructor = _.isFunction(constructor);
+			if (!hasConstructor) { extension = constructor; }
+
+			var self = this,
+				fn = function() {
+					var ret = self.apply(this, arguments);
+					if (hasConstructor) {
+						ret = constructor.apply(this, arguments);
+					} else if (this.initialize) {
+						this.initialize.apply(this, arguments);
+					}
+					return ret;
+				};
+
+			// Add properties to the object
+			Util.construct(fn, this);
+
+			// Duplicate the prototype
+			var NoOp = function() {};
+			NoOp.prototype = this.prototype;
+			fn.prototype = new NoOp();
+
+			// Merge the prototypes
+			Util.construct(fn.prototype, this.prototype, extension);
+			fn.prototype.constructor = constructor || fn;
+
+			return fn;
+		},
+
 		// arg can be an image object or image data
 		getImage: function(arg, callback) {
 			var imageObj, canvas, context, dataUrl;

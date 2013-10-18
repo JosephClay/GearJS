@@ -8,7 +8,7 @@
 	 * @example
 	 * var imageObj = new Image();
 	 * imageObj.onload = function() {
-	 *   var image = new Image({
+	 *   var image = new Gear.Image({
 	 *     x: 200,
 	 *     y: 50,
 	 *     image: imageObj,
@@ -18,14 +18,16 @@
 	 * };
 	 * imageObj.src = '/path/to/image.jpg'
 	 */
-	var Image = function(config) {
+	var Img = function(config) {
 		Gear.Shape.call(this, config);
 		this._className = Constants.CLASS.IMAGE;
 		this._isFilterApplied = false;
 		this.filterCanvas = null;
 	};
 
-	Util.construct(Image.prototype, Gear.Shape.prototype, {
+	Img.extend = Util.extend;
+
+	Util.construct(Img.prototype, Gear.Shape.prototype, {
 		
 		draw: function(canvas) {
 			var context = canvas.getContext(),
@@ -202,7 +204,7 @@
 		}
 	});
 
-	Gear.Image = Image;
+	Gear.Image = Img;
 
 }(Gear, Gear.Constants, Gear.Util));
 

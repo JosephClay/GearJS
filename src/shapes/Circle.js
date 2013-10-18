@@ -14,6 +14,8 @@
 		this._className = Constants.CLASS.CIRCLE;
 	};
 
+	Circle.extend = Util.extend;
+
 	Util.construct(Circle.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),

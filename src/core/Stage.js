@@ -39,6 +39,8 @@
 		Global.stages.push(this);
 	};
 
+	Stage.extend = Util.extend;
+
 	Util.construct(Stage.prototype, Gear.Container.prototype, {
 		_validateAdd: function(child) {
 			if (child.getType() !== Constants.NODE_TYPE.LAYER) {

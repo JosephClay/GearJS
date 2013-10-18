@@ -14,6 +14,8 @@
 		this._subscriptions = {};
 	};
 	
+	Signal.extend = Gear.Util.extend;
+
 	Signal.construct = function() {
 		return new Signal();
 	};

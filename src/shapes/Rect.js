@@ -15,6 +15,8 @@
 		this._className = Constants.CLASS.RECT;
 	};
 
+	Rect.extend = Util.extend;
+
 	Util.construct(Rect.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),

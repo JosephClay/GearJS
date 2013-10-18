@@ -18,6 +18,8 @@
 		this._className = Constants.CLASS.WEDGE;
 	};
 
+	Wedge.extend = Util.extend;
+
 	Util.construct(Wedge.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),

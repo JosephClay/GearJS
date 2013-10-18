@@ -29,6 +29,8 @@
 		this._setAllPoints();
 	};
 
+	Blob.extend = Util.extend;
+
 	Util.construct(Blob.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var allPoints = this.allPoints,

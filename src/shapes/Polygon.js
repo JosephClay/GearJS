@@ -22,6 +22,8 @@
 		this._className = Constants.CLASS.POLYGON;
 	};
 
+	Polygon.extend = Util.extend;
+
 	Util.construct(Polygon.prototype, Gear.Shape.prototype, {
 		draw: function(canvas) {
 			var context = canvas.getContext(),

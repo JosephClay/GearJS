@@ -12,6 +12,8 @@
 		Global.shapes[this._colorKey] = this;
 	};
 
+	Shape.extend = Util.extend;
+
 	Util.construct(Shape.prototype, Gear.Node.prototype, {
 
 		/**

@@ -43,6 +43,8 @@
 		this._setTxtData();
 	};
 
+	Txt.extend = Util.extend;
+
 	Util.construct(Txt.prototype, Gear.Shape.prototype, {
 
 		draw: function(canvas) {
