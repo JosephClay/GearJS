@@ -58,7 +58,7 @@
 
 		_fire: function() {
 			var dimensions = this.dimensions = this.measure();
-			this.trigger('resize', dimensions, new Date());
+			this.trigger('resize', dimensions, _.now());
 		},
 
 		_measure: function() {
