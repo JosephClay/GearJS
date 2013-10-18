@@ -34,7 +34,7 @@
 
 		off: function(name) {
 			if (!this.tickId) { return; }
-			Gear.Tick.unsubscribe(this.tickId);
+			Gear.Tick.unsubscribe('tick', this.tickId);
 			this.tickId = null;
 			this.callback = null;
 		},
