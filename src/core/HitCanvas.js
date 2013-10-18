@@ -22,7 +22,7 @@
 			var style = stroke.getStyle();
 			stroke.setStyle(shape.getColorId());
 
-			stroke.stroke();
+			stroke.draw(this);
 			
 			stroke.setStyle(style);
 		},
