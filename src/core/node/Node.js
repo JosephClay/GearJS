@@ -513,7 +513,8 @@
 		},
 
 		getListening: function() {
-			return !!this.attr.listening;
+			var val = this.attr.listening;
+			return (!_.exists(val)) ? false : val;
 		},
 		setListening: function(isListening) {
 			this.attr.listening = !!isListening;
