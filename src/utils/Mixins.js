@@ -91,7 +91,26 @@
 		 */
 		duplicate: function(obj) {
 			return JSON.parse(JSON.stringify(obj));
-		}
+		},
+
+		/**
+		 * Iterate a number of times
+		 * @param  {Number}   numOfTimes
+		 * @param  {Function} callback
+		 */
+		iterate: function(numOfTimes, callback) {
+			var idx = 0;
+			while (idx < numOfTimes) {
+				callback(idx);
+				idx++;
+			}
+		},
+
+		take: (function(slice) {
+			return function(arr, numberToTake) {
+				return _.slice(arr, 0, numberToTake);
+			};
+		}(Array.prototype.slice)) 
 	});
 
 }(Gear.Global));
