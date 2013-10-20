@@ -68,7 +68,8 @@
 		},
 
 		clear: function(clip) {
-			var context = this.getContext(),
+			var canvas = this.getCanvas(),
+				context = this.getContext(),
 				plane;
 
 			if (clip) {
@@ -76,7 +77,7 @@
 				context.clearRect(plane.x, plane.y, plane.width, plane.height);
 				plane.destroy();
 			} else {
-				context.clearRect(0, 0, this.getWidth(), this.getHeight());
+				canvas.width = canvas.width;
 			}
 		},
 
