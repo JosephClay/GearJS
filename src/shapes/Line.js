@@ -12,8 +12,10 @@
 	 *			{ x: 450, y: 60 },
 	 *			{ x: 500, y: 20 }
 	 *		],
-	 *		stroke: 'blue',
-	 *		strokeWidth: 3
+	 *		stroke: {
+	 *  		color: 'blue',
+	 *    		width: 3
+	 *      }
 	 *	});
 	 */
 	var Line = function(config) {
