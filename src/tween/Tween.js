@@ -22,8 +22,8 @@
 	Tween.prototype = {
 
 		// Defaults
-		easingFunction: Easing.Linear.None,
-		interpolationFunction: Interpolation.Linear,
+		easingFunction: Gear.Easing.Linear.None,
+		interpolationFunction: Gear.Interpolation.Linear,
 
 		to: function(properties, duration) {
 			if (duration !== undefined) {
@@ -163,13 +163,13 @@
 			return true;
 		},
 
-		_fixProps: function(o, object) {
+		_fixProps: function(base, object) {
 			// Set all starting values present on the target object
 			var field;
 			for (field in object) {
-				o[field] = ~~object[field];
+				base[field] = parseFloat(object[field], 10);
 			}
-			return o;
+			return base;
 		},
 
 		toString: function() {

@@ -18,7 +18,7 @@
 			return false;
 		}
 
-		time = (time !== undefined) ? time : _.now();
+		time = (time) ? time.time : _.now();
 		
 		var idx = 0, numTweens = _tweens.length;
 		while (idx < numTweens) {

@@ -107,8 +107,8 @@
 		 * @param {Gear.Layer} layer
 		 */
 		addLayer: function(layer) {
+			if (!layer) { return; }
 			this.layers.push(layer);
-
 			return this;
 		},
 
