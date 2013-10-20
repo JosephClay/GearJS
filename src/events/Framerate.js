@@ -19,6 +19,8 @@
 		this.tickId = null;
 		this._tick = this._tick.bind(this);
 		this.setFPS(fps);
+
+		this.e = {};
 	};
 
 	Framerate.prototype = {
@@ -58,7 +60,11 @@
 				 
 				this.then = e.now - (delta % this.interval);
 
-				this.callback.call();
+				this.e.now = e.now;
+				this.e.then = e.then;
+				this.e.delta = e.delta;
+
+				this.callback.call(null, this.e);
 			}
 		},
 
