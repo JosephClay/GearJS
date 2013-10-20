@@ -47,8 +47,8 @@
 		// This abstraction allows for negative numbers
 		round: function(num) {
 			if (num < 0) { return Math.round(num); }
-			var x = num % 1;
-			return num - x + (x / 1 + 1.5 >> 1) * 1;
+			var remainder = num % 1;
+			return num - remainder + ((((remainder / 1) + 1.5) >> 1) * 1);
 		},
 
 		// Check if an elem is in the document
