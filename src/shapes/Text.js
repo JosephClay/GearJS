@@ -66,6 +66,8 @@
 			context.translate(padding, 0);
 			context.translate(0, padding + textHeight / 2);
 
+			canvas.fillAndStroke(this);
+			
 			// draw text lines
 			var idx = 0, textArrLength = textArr.length;
 			for (; idx < textArrLength; idx += 1) {
@@ -82,6 +84,7 @@
 				context.fillText(text, 0, 0);
 				context.translate(0, lineHeightPx);
 			}
+
 
 			canvas.restore();
 		},
@@ -312,13 +315,14 @@
 		},
 
 		getText: function() {
-			var val = this.attr.text;
-			return (!_.exists(val)) ? '' : val;
+			return this.attr.text || '';
 		},
 
 		setText: function(text) {
-			var str = _.isString(text) ? text : text.toString();
+			var str = _.isString(text) ? text : _.exists(text) ? text.toString() : '';
 			this.attr.text = str;
+			this._setTxtData();
+			return this;
 		}
 	});
 
