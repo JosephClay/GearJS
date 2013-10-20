@@ -193,7 +193,7 @@
 		 * @param {Plane} clip
 		 */
 		setClip: function(clip) {
-			if (!clip) { return; }
+			if (!clip) { return this; }
 
 			var plane = Gear.Plane(clip);
 			this.attr.clip = plane.toObject();
