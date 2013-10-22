@@ -496,4 +496,4 @@
 
 	Gear.Stage = Stage;
 
-}(Gear, Gear.Constants, Gear.Global, Gear.Util));
+}(Gear, Gear.Const, Gear.Global, Gear.Util));

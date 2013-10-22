@@ -244,7 +244,7 @@
 
 			In: function( k ) {
 
-				return 1 - TWEEN.Easing.Bounce.Out( 1 - k );
+				return 1 - Gear.Easing.Bounce.Out( 1 - k );
 
 			},
 
@@ -272,8 +272,8 @@
 
 			InOut: function( k ) {
 
-				if ( k < 0.5 ) return TWEEN.Easing.Bounce.In( k * 2 ) * 0.5;
-				return TWEEN.Easing.Bounce.Out( k * 2 - 1 ) * 0.5 + 0.5;
+				if ( k < 0.5 ) return Gear.Easing.Bounce.In( k * 2 ) * 0.5;
+				return Gear.Easing.Bounce.Out( k * 2 - 1 ) * 0.5 + 0.5;
 
 			}
 

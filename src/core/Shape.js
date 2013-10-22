@@ -173,4 +173,4 @@
 	
 	Gear.Shape = Shape;
 
-}(Gear, Gear.Global, Gear.Constants, Gear.Util));
+}(Gear, Gear.Global, Gear.Const, Gear.Util));

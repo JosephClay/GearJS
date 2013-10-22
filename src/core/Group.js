@@ -26,4 +26,4 @@
 
 	Gear.Group = Group;
 
-}(Gear, Gear.Constants, Gear.Util));
+}(Gear, Gear.Const, Gear.Util));

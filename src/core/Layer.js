@@ -296,4 +296,4 @@
 
 	Gear.Layer = Layer;
 
-}(Gear, Gear.Constants, Gear.Util));
+}(Gear, Gear.Const, Gear.Util));

@@ -664,8 +664,8 @@
 			point = Gear.point.parse(point);
 			
 			var offset = this.getOffset();
-			offset.x = point.x;
-			offset.y = point.y;
+			if (_.exists(point.x)) { offset.x = point.x; }
+			if (_.exists(point.y)) { offset.y = point.y; }
 			return this;
 		},
 
@@ -812,4 +812,4 @@
 	
 	Gear.Node = Node;
 	
-}(Gear, Gear.Constants, Gear.Util));
+}(Gear, Gear.Const, Gear.Util));

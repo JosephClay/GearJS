@@ -177,4 +177,4 @@
 		},
 	};
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Const));

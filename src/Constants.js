@@ -228,6 +228,6 @@
 		}
 	};
 
-	Gear.Constants = Constants;
+	Gear.Const = Constants;
 
 }(Gear));

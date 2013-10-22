@@ -251,4 +251,4 @@
 
 	Gear.Signal = Signal;
 
-}(Gear, Gear.Constants));
+}(Gear, Gear.Const));

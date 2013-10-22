@@ -26,4 +26,4 @@
 		}
 	};
 
-}(Gear, Gear.Constants, document, window));
+}(Gear, Gear.Const, document, window));

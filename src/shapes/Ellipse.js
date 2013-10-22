@@ -72,4 +72,4 @@
 
 	Gear.Ellipse = Ellipse;
 
-}(Gear, Gear.Constants, Gear.Util));
+}(Gear, Gear.Const, Gear.Util));

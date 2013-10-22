@@ -181,7 +181,9 @@
 			width = width || 0;
 			// take into account pixel ratio
 			this.attr.width = this.elem.width = (width * this.getPixelRatio());
+			this.elem.setAttribute('width', _.toPx(width));
 			this.elem.style.width = _.toPx(width);
+
 			var pixelRatio = this.getPixelRatio();
 			this.context.scale(pixelRatio, pixelRatio);
 		},
@@ -190,6 +192,7 @@
 			height = height || 0;
 			// take into account pixel ratio
 			this.attr.height = this.elem.height = (height * this.getPixelRatio());
+			this.elem.setAttribute('height', _.toPx(height));
 			this.elem.style.height = _.toPx(height);
 			var pixelRatio = this.getPixelRatio();
 			this.context.scale(pixelRatio, pixelRatio);
@@ -202,4 +205,4 @@
 
 	Gear.Canvas = Canvas;
 
-}(Gear, Gear.Global, Gear.Constants, Gear.Util));
+}(Gear, Gear.Global, Gear.Const, Gear.Util));
