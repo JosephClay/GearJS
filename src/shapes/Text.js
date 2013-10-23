@@ -28,6 +28,7 @@
 	 * });
 	 */
 	var Txt = function(config) {
+		config = _.extend({}, this.defaults, config);
 		if (!_.exists(config.width)) { config.width = 'auto'; }
 		if (!_.exists(config.height)) { config.height = 'auto'; }
 

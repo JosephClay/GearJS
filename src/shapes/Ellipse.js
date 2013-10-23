@@ -6,6 +6,7 @@
 	 * @param {Object} config.radius defines x and y radius
 	 */
 	var Ellipse = function(config) {
+		config = _.extend({}, this.defaults, config);
 		Gear.Shape.call(this, config);
 		this._className = Constants.CLASS.ELLIPSE;
 	};

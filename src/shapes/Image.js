@@ -19,6 +19,7 @@
 	 * imageObj.src = '/path/to/image.jpg'
 	 */
 	var Img = function(config) {
+		config = _.extend({}, this.defaults, config);
 		Gear.Shape.call(this, config);
 		this._className = Constants.CLASS.IMAGE;
 		this._isFilterApplied = false;

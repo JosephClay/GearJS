@@ -42,7 +42,8 @@
 	};
 
 	Util.construct(Node.prototype, Gear.Signal.prototype, {
-		
+		defaults: {},
+
 		// At this point, we should know exactly how to draw this to the canvas.
 		// - Give intercepting drawScene/drawHit functions priority, they're calling __draw on children
 		// - Give the attribute priority to override an object defined function

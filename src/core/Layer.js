@@ -5,7 +5,7 @@
 	 * @param {Object} config
 	 */
 	var Layer = function(config) {
-		config = config || {};
+		config = _.extend({}, this.defaults, config);
 
 		this.canvas = new Gear.SceneCanvas(config);
 		this.hitCanvas = new Gear.HitCanvas(config);

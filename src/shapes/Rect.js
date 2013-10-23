@@ -11,6 +11,7 @@
 	 * });
 	 */
 	var Rect = function(config) {
+		config = _.extend({}, this.defaults, config);
 		Gear.Shape.call(this, config);
 		this._className = Constants.CLASS.RECT;
 	};

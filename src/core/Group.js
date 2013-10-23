@@ -5,6 +5,7 @@
 	 * @param {Object} config
 	 */
 	var Group = function(config) {
+		config = _.extend({}, this.defaults, config);
 		Gear.Container.call(this, config);
 		this.nodeType = Constants.NODE_TYPE.GROUP;
 	};

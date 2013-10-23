@@ -28,7 +28,7 @@
 
 	// A stage is used to contain multiple layers
 	var Stage = function(config) {
-		config = config || {};
+		config = _.extend({}, this.defaults, config);
 		config.container = _ensureContainer(config.container);
 
 		Gear.Container.call(this, config);
