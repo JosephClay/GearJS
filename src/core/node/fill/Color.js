@@ -13,10 +13,15 @@
 	};
 
 	Util.construct(Color.prototype, Fill.prototype, {
-		draw: function(canvas) {
+		draw: function(canvas, shape) {
 			var context = canvas.getContext();
 			context.fillStyle = this._color;
-			context.fill();
+
+			// For shapes, only fill() if it's not text
+			// otherwise, we'll fill other shapes in the context
+			if (shape.nodeType !== Gear.Const.NODE_TYPE.TEXT) {
+				context.fill();
+			}
 		},
 
 		toJSON: function() {

@@ -29,7 +29,8 @@
 			STAGE: 1,
 			LAYER: 2,
 			GROUP: 3,
-			SHAPE: 4
+			SHAPE: 4,
+			TEXT: 5
 		},
 
 		NODE_NAME: {
@@ -37,7 +38,8 @@
 			1: 'Stage',
 			2: 'Layer',
 			3: 'Group',
-			4: 'Shape'
+			4: 'Shape',
+			5: 'Text'
 		},
 
 		TOP: 'top',

@@ -23,7 +23,7 @@
 				this._applyShadow(shape);
 			}
 
-			fill.draw(this);
+			fill.draw(this, shape);
 
 			this.restore();
 
