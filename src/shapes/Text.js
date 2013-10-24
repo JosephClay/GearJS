@@ -34,6 +34,7 @@
 
 		Gear.Shape.call(this, config);
 		this._className = Constants.CLASS.TEXT;
+		this.nodeType = Constants.NODE_TYPE.TEXT;
 
 		// update text data for certain attr changes
 		var idx = 0;
@@ -56,6 +57,7 @@
 				fontFamily = this.getFontFamily(),
 				textHeight = this.getTextHeight(),
 				lineHeightPx = this.getLineHeight() * textHeight,
+				textAlign = this.getTextAlign(),
 				textArr = this.textArr,
 				totalWidth = this.getWidth();
 
@@ -63,7 +65,7 @@
 			
 			context.font = this._getContextFont();
 			context.textBaseline = 'middle';
-			context.textAlign = Constants.LEFT;
+			context.textAlign = textAlign;
 			context.translate(padding, 0);
 			context.translate(0, padding + textHeight / 2);
 
@@ -85,7 +87,6 @@
 				context.fillText(text, 0, 0);
 				context.translate(0, lineHeightPx);
 			}
-
 
 			canvas.restore();
 		},
@@ -248,10 +249,6 @@
 			this.textWidth = textWidth;
 		},
 
-		toString: function() {
-			return '[Text]';
-		},
-
 		getFontFamily: function() {
 			var val = this.attr.fontFamily;
 			return (!_.exists(val)) ? Constants.DEFAULT_FONT : val;
@@ -259,6 +256,7 @@
 
 		setFontFamily: function(val) {
 			this.attr.fontFamily = val;
+			return this;
 		},
 
 		getFontSize: function() {
@@ -268,6 +266,7 @@
 
 		setFontSize: function(val) {
 			this.attr.fontSize = val;
+			return this;
 		},
 
 		getFontStyle: function() {
@@ -277,6 +276,7 @@
 
 		setFontStyle: function(val) {
 			this.attr.fontStyle = val;
+			return this;
 		},
 
 		getPadding: function() {
@@ -286,6 +286,7 @@
 
 		setPadding: function(val) {
 			this.attr.padding = val;
+			return this;
 		},
 
 		getAlign: function() {
@@ -295,6 +296,7 @@
 
 		setAlign: function(val) {
 			this.attr.align = val;
+			return this;
 		},
 
 		getLineHeight: function() {
@@ -304,6 +306,7 @@
 
 		setLineHeight: function(val) {
 			this.attr.lineHeight = val;
+			return this;
 		},
 
 		getWrap: function() {
@@ -313,6 +316,16 @@
 
 		setWrap: function(val) {
 			this.attr.wrap = val;
+			return this;
+		},
+
+		getTextAlign: function() {
+			return this.attr.align || Constants.LEFT;
+		},
+
+		setTextAlign: function(alignment) {
+			this.attr.align = alignment;
+			return this;
 		},
 
 		getText: function() {
@@ -324,6 +337,10 @@
 			this.attr.text = str;
 			this._setTxtData();
 			return this;
+		},
+
+		toString: function() {
+			return '[Text]';
 		}
 	});
 
