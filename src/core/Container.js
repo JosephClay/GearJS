@@ -59,6 +59,11 @@
 			return this;
 		},
 
+		clearChildren: function() {
+			this.children = [];
+			return this;
+		},
+
 		/**
 		 * Destroy all children in the container
 		 * @return {this}
