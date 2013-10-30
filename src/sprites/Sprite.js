@@ -89,6 +89,7 @@
 		play: function() {
 			this._isPaused = false;
 			this.framerate.on('tick', this._tick.bind(this));
+			return this;
 		},
 		
 		/**
@@ -97,6 +98,7 @@
 		stop: function() {
 			this._isPaused = true;
 			this.framerate.off('tick');
+			return this;
 		},
 
 		/**
@@ -107,6 +109,7 @@
 		gotoAndPlay: function(animation, idx) {
 			this._goto(animation, idx);
 			this.play();
+			return this;
 		},
 
 		/**
@@ -117,6 +120,7 @@
 		gotoAndStop: function(animation, idx) {
 			this._goto(animation, idx);
 			this.stop();
+			return this;
 		},
 
 		/**
