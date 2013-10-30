@@ -151,9 +151,11 @@
 			scene.setSize(this.getSize());
 			draw.call(this, scene);
 			this._cache = scene;
+			return this;
 		},
 		uncache: function() {
 			this._cache = null;
+			return this;
 		},
 
 		/**
