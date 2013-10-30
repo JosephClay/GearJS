@@ -51,9 +51,11 @@
 			var args = arguments,
 				name = _splicer.call(args, 0, 1)[0],
 				location = this._subscriptions[name] || (this._subscriptions[name] = []),
-				idx = 0, length = location.length;
-			for (; idx < length; idx += 1) {
-				location[idx].apply(null, args);
+				idx = 0, length = location.length,
+				func;
+			for (; idx < length; idx++) {
+				func = location[idx];
+				if (func) { func.apply(null, args); }
 			}
 		},
 
