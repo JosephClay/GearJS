@@ -32,6 +32,9 @@
 			this._framerate.on('tick', this.tick.bind(this));
 			return this;
 		},
+		resume: function() {
+			this.start();
+		},
 
 		stop: function() {
 			if (!this.isRunning() || !this._tickId) { return this; }
@@ -44,6 +47,9 @@
 			this._framerate.off('tick');
 
 			return this;
+		},
+		pause: function() {
+			this.stop();
 		},
 
 		reset: function() {
@@ -84,12 +90,22 @@
 			};
 		},
 
-		setElapsed: function(hours, mins, secs) {
+		setElapsed: function(hours, mins, secs, ms) {
+			if (_.isObject(hours)) {
+				var config = hours;
+				this._setElapsed(config.hr, config.min, config.sec, config.ms);
+				return;
+			}
+		
+			this._setElapsed(hours, mins, secs);
+		},
+
+		_setElapsed: function(hours, mins, secs, ms) {
 			this.reset();
-			this.totalElapsed = 0;
-			this.totalElapsed += hours * _ONEHOUR;
-			this.totalElapsed += mins  * _ONEMIN;
-			this.totalElapsed += secs  * _ONESEC;
+			this.totalElapsed = (ms || 0);
+			this.totalElapsed += (hours || 0) * _ONEHOUR;
+			this.totalElapsed += (mins  || 0) * _ONEMIN;
+			this.totalElapsed += (secs  || 0) * _ONESEC;
 			this.totalElapsed = Math.max(this.totalElapsed, 0); // prevent negative numbers
 		},
 
